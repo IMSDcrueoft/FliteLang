@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="FliteLang">
+      <UniqueIdentifier>{a768b8f9-3969-4cc7-966f-5b01ce277359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FliteLang\source">
+      <UniqueIdentifier>{841c747c-4284-4b08-b505-11e08dbee120}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FliteLang\header">
+      <UniqueIdentifier>{1e11b769-24d5-4b08-aa50-e9595555c191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\well1024a.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\chunk.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\compiler.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\debug.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lineArray.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\memory.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\object.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scanner.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\timer.cpp">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\value.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vm.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\table.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entrance.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nativeGlobal.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gc.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nativeMath.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nativeSystem.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nativeTime.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nativeString.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nativeArray.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nativeObject.c">
+      <Filter>FliteLang\source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\chunk.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\compiler.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lineArray.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\object.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scanner.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\timer.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\value.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vm.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\well1024a.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\table.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\version.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hash.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entrance.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\options.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\allocator.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gc.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nativeBuiltin.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\optimize.h">
+      <Filter>FliteLang\header</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
