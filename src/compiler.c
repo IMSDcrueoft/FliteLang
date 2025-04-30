@@ -723,21 +723,6 @@ static void forStatement() {
 	endScope();
 }
 
-static void ifStatement() {
-	consume(TOKEN_LEFT_PAREN, "Expect '(' after 'if'.");
-	expression();
-	consume(TOKEN_RIGHT_PAREN, "Expect ')' after condition.");
-
-	int32_t thenJump = emitJump(OP_JUMP_IF_FALSE_POP);
-	statement();
-
-	int32_t elseJump = emitJump(OP_JUMP);
-	patchJump(thenJump);
-
-	if (match(TOKEN_ELSE)) statement();
-	patchJump(elseJump);
-}
-
 static void branchCaseStatement() {
 	if (!match(TOKEN_NONE)) {
 		expression();
@@ -795,62 +780,6 @@ static void returnStatement() {
 	}
 }
 
-static void whileStatement() {
-	int32_t loopStart = currentChunk()->count;
-
-	consume(TOKEN_LEFT_PAREN, "Expect '(' after 'while'.");
-	expression();
-	consume(TOKEN_RIGHT_PAREN, "Expect ')' after condition.");
-
-	int32_t exitJump = emitJump(OP_JUMP_IF_FALSE_POP);
-
-	//record the loop
-	LoopContext loop = (LoopContext){ .start = loopStart, .enclosing = current->currentLoop,.breakJumps = NULL,.breakJumpCount = 0 ,.enterParamCount = current->localCount };
-	loop.breakJumpCapacity = 8;
-	loop.breakJumps = ALLOCATE_NO_GC(int32_t, loop.breakJumpCapacity);
-	current->currentLoop = &loop;
-
-	statement();
-
-	emitLoop(loopStart);
-
-	patchJump(exitJump);
-
-	while (loop.breakJumpCount > 0) {
-		patchJump(loop.breakJumps[--loop.breakJumpCount]);
-	}
-
-	FREE_ARRAY(int32_t, loop.breakJumps, loop.breakJumpCapacity);
-	current->currentLoop = current->currentLoop->enclosing;
-}
-
-static void doWhileStatement() {
-	int32_t loopStart = currentChunk()->count;
-	//record the loop
-	LoopContext loop = (LoopContext){ .start = loopStart, .enclosing = current->currentLoop,.breakJumps = NULL,.breakJumpCount = 0 ,.enterParamCount = current->localCount };
-	loop.breakJumpCapacity = 8;
-	loop.breakJumps = ALLOCATE_NO_GC(int32_t, loop.breakJumpCapacity);
-	current->currentLoop = &loop;
-
-	statement();
-
-	consume(TOKEN_WHILE, "Expect 'while' after 'do' to form a valid 'do-while'.");
-	consume(TOKEN_LEFT_PAREN, "Expect '(' after 'while'.");
-	expression();
-	consume(TOKEN_RIGHT_PAREN, "Expect ')' after condition.");
-	consume(TOKEN_SEMICOLON, "Expect ';' after 'do-while' loop.");
-
-	int32_t exitJump = emitJump(OP_JUMP_IF_FALSE_POP);
-	emitLoop(loopStart);
-	patchJump(exitJump);
-
-	while (loop.breakJumpCount > 0) {
-		patchJump(loop.breakJumps[--loop.breakJumpCount]);
-	}
-	FREE_ARRAY(int32_t, loop.breakJumps, loop.breakJumpCapacity);
-	current->currentLoop = current->currentLoop->enclosing;
-}
-
 //only the loop itself can fix the jump position
 static void breakStatement() {
 	if (current->currentLoop == NULL) {
@@ -900,9 +829,7 @@ static void synchronize() {
 		case TOKEN_FUN:
 		case TOKEN_VAR:
 		case TOKEN_FOR:
-		case TOKEN_IF:
 		case TOKEN_BRANCH:
-		case TOKEN_WHILE:
 		case TOKEN_PRINT:
 		case TOKEN_RETURN:
 			return;
@@ -919,20 +846,11 @@ static void statement() {
 	if (match(TOKEN_PRINT)) {
 		printStatement();
 	}
-	else if (match(TOKEN_IF)) {
-		ifStatement();
-	}
 	else if (match(TOKEN_BRANCH)) {
 		branchStatement();
 	}
 	else if (match(TOKEN_RETURN)) {
 		returnStatement();
-	}
-	else if (match(TOKEN_WHILE)) {
-		whileStatement();
-	}
-	else if (match(TOKEN_DO)) {
-		doWhileStatement();
 	}
 	else if (match(TOKEN_FOR)) {
 		forStatement();
@@ -1288,12 +1206,10 @@ ParseRule rules[] = {
 	[TOKEN_MODULE_SYSTEM] = {builtinLiteral,     NULL,   PREC_NONE},
 	[TOKEN_AND] = {NULL,     and_,   PREC_AND},
 	[TOKEN_CLASS] = {NULL,     NULL,   PREC_NONE},
-	[TOKEN_ELSE] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_FALSE] = {literal,     NULL,   PREC_NONE},
 	[TOKEN_FOR] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_FUN] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_LAMBDA] = {lambda,	NULL,	PREC_NONE},
-	[TOKEN_IF] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_BRANCH] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_NONE] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_NIL] = {literal,     NULL,   PREC_NONE},
@@ -1304,8 +1220,6 @@ ParseRule rules[] = {
 	[TOKEN_THIS] = {this_,     NULL,   PREC_NONE},
 	[TOKEN_TRUE] = {literal,     NULL,   PREC_NONE},
 	[TOKEN_VAR] = {NULL,     NULL,   PREC_NONE},
-	[TOKEN_DO] = {NULL,     NULL,   PREC_NONE},
-	[TOKEN_WHILE] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_ERROR] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_EOF] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_BREAK] = {NULL,     NULL,   PREC_NONE},
