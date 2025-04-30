@@ -6,6 +6,11 @@ FliteLang is a subset of LoxFlux language (https://github.com/IMSDcrueoft/LoxFlu
 
 ## List of FliteLang features
 
+### Syntax
+``` ebnf
+
+```
+
 ### Numbers
 
 - **Binary literal**: Use `0b` or `0B` prefix, e.g., `0b1010`.
@@ -88,7 +93,6 @@ FliteLang is a subset of LoxFlux language (https://github.com/IMSDcrueoft/LoxFlu
 
 - **Array Literals**: Supports defining array literals directly in the code(no more than `1024` within each `[]`)(Configurable up to 65535), making array creation more intuitive and convenient(nesting is supported).
 - **Syntax**: Use square brackets `[]` to define an array. Elements are separated by commas. Arrays can hold elements of any supported data type, including numbers, strings, objects, or even other arrays (nested arrays).
-- **Typed Array**: Typed arrays are pure arrays in compiled languages like C/CPP as we know them, and if you try to assign a non-numeric type to it, it will become `0`.
 
 ---
 
@@ -136,7 +140,7 @@ noneState  ::= "none" ":" statement
 
 ### Comment
 
-- **Block comment support**: Using `/* */`.
+- **Line & Block comment**: Using `//` or `/* */`.
 
 ---
 
@@ -230,7 +234,6 @@ The `@string` module provides advanced string manipulation capabilities, support
   - `utf8Len`: Returns the character count for UTF-8 strings (ignoring byte-level details). e.g.,`@string.utf8Len("αβγ")` → `3`
   - `charAt`: Retrieves an ASCII character by byte position.  
   - `utf8At`: Retrieves a UTF-8 character by logical character position. e.g.,`@string.utf8At("αβγ", 1)` → `"β"`
-  - `append`: Efficiently appends strings or other builders to a `StringBuilder`.
 
 This module balances performance and safety for both simple text tasks and large-scale string processing.
 
