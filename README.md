@@ -34,14 +34,12 @@ FliteLang is a subset of LoxFlux language (https://github.com/IMSDcrueoft/LoxFlu
 #### Global Variable
 
 - **Optimized global variable access**: Achieves `O(1)` time complexity. With dynamic index updates, direct index fetching can be achieved in almost all cases. Indexes are rarely invalidated, unless you frequently delete and then declare global variables that don't exist.
-- **Global instance**: Use `@global` to explicitly get the global table, create and delete attributes, use it like a simple object.
 
 ---
 
 #### Local Variable
 
 - **Local variable range**: Expands to support up to 1023 nested variables(Configurable up to 65534).
-- **`const` keyword support**: Supported within blocks.
 
 ---
 
@@ -119,7 +117,6 @@ FliteLang is a subset of LoxFlux language (https://github.com/IMSDcrueoft/LoxFlu
 
 ### Loop
 
-- **do-while**: Supported `while`,`for` and `do-while` loop.
 - **`break` and `continue` keywords**: Supported within loops.
 
 ---
@@ -159,7 +156,7 @@ noneState  ::= "none" ":" statement
 
 There are some namespace objects that start with `'@'` available, and since they are not in the global scope, the initial state of the global scope is a "completely clean" state. 
 
-#### `@math` `@array` `@object` `@string` `@time` `@ctor` `@sys`
+#### `@math` `@array` `@object` `@string` `@time` `@sys`
 
 The `@math` module provides a comprehensive set of mathematical functions and utilities, implemented as native bindings for efficiency and ease of use. These functions are accessible globally and can be used directly in scripts or applications.
 
@@ -206,16 +203,6 @@ The `@array` module provides robust support for working with arrays, enabling ef
   - `length`: Returns the current number of elements in the array.
   - `pop`: Removes and returns the last element of the array. If the array is empty, it may return nil or throw an error, depending on configuration.
   - `push`: Appends one or more elements to the end of the array.
-- **Array Constructors**:
-  - `Array`: Creates a generic dynamic array that can hold elements of any supported type.
-  - `F64Array`: Creates a fixed-size array of 64-bit floating-point numbers (IEEE 754 double precision).
-  - `F32Array`: Creates a fixed-size array of 32-bit floating-point numbers (IEEE 754 single precision).
-  - `U32Array`: Creates a fixed-size array of 32-bit unsigned integers.
-  - `I32Array`: Creates a fixed-size array of 32-bit signed integers.
-  - `U16Array`: Creates a fixed-size array of 16-bit unsigned integers.
-  - `I16Array`: Creates a fixed-size array of 16-bit signed integers.
-  - `U8Array`: Creates a fixed-size array of 8-bit unsigned integers (commonly used for byte-level operations).
-  - `I8Array`: Creates a fixed-size array of 8-bit signed integers.
 
 These utilities are invaluable for working with structured data, especially in performance-critical applications or environments where memory usage must be tightly controlled. They enable developers to manage arrays explicitly and efficiently.
 
@@ -228,9 +215,7 @@ The `@object` module provides utilities for type checking and object introspecti
   - `isFunction`: Verifies if a value is a function|native-function.
   - `isObject`: Verifies if a value is an object.
   - `isArray`: Verifies if a value is an array.
-  - `isArrayLike`: Verifies if a value is typedArray.
   - `isString`: Verifies if a value is a string.
-  - `isStringBuilder`: Verifies if a value is a stringBuilder.
   - `isNumber`: Verifies whether a value is a number.
   - `isBoolean`: Verifies whether a value is true|false.
 
@@ -246,10 +231,6 @@ The `@string` module provides advanced string manipulation capabilities, support
   - `charAt`: Retrieves an ASCII character by byte position.  
   - `utf8At`: Retrieves a UTF-8 character by logical character position. e.g.,`@string.utf8At("αβγ", 1)` → `"β"`
   - `append`: Efficiently appends strings or other builders to a `StringBuilder`.
-  - `intern`: Converts a `StringBuilder` to an immutable string(will occupy the constant scale), or returns existing strings directly.
-  - `equals`: Compare whether the content of two strings|stringBuilders is the same.
-- **StringBuiler Constructor**:
-  - `Builder`: Creates a mutable string buffer, optionally initialized with a string or another builder.  
 
 This module balances performance and safety for both simple text tasks and large-scale string processing.
 
