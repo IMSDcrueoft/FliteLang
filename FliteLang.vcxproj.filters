@@ -23,9 +23,6 @@
     <ClCompile Include="main.c">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="src\well1024a.c">
-      <Filter>FliteLang\source</Filter>
-    </ClCompile>
     <ClCompile Include="src\chunk.c">
       <Filter>FliteLang\source</Filter>
     </ClCompile>
@@ -119,9 +116,6 @@
       <Filter>FliteLang\header</Filter>
     </ClInclude>
     <ClInclude Include="src\vm.h">
-      <Filter>FliteLang\header</Filter>
-    </ClInclude>
-    <ClInclude Include="src\well1024a.h">
       <Filter>FliteLang\header</Filter>
     </ClInclude>
     <ClInclude Include="src\table.h">

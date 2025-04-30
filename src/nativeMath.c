@@ -4,9 +4,36 @@
 * See LICENSE file in the root directory for full license text.
 */
 #include "nativeBuiltin.h"
-#include "well1024a.h"
 #include "timer.h"
 #include "vm.h"
+
+//xorshift128plus_state
+uint64_t state[2];
+
+static void xorshift128plus_seed(uint64_t seed) {
+	state[0] = seed;
+	state[1] = seed ^ 0x6a09e667f3bcc909;
+	for (int i = 0; i < 10; i++) {
+		uint64_t s1 = state[0];
+		uint64_t s0 = state[1];
+		state[0] = s0;
+		s1 ^= s1 << 23;
+		state[1] = s1 ^ s0 ^ (s1 >> 17) ^ (s0 >> 26);
+	}
+}
+
+static uint64_t xorshift128plus_next() {
+	uint64_t s1 = state[0];
+	uint64_t s0 = state[1];
+	state[0] = s0;
+	s1 ^= s1 << 23;
+	state[1] = s1 ^ s0 ^ (s1 >> 17) ^ (s0 >> 26);
+	return state[1] + s0;
+}
+
+static double xorshift128plus_random() {
+	return (1.0 / 4294967296.0) * (uint32_t)xorshift128plus_next();
+}
 
 //Math
 //max with multiple input
@@ -43,14 +70,14 @@ static Value minNative(int argCount, Value* args)
 
 //get a random [0,1)
 static Value randomNative(int argCount, Value* args) {
-	return NUMBER_VAL(well1024a_random());
+	return NUMBER_VAL(xorshift128plus_random());
 }
 
 //seed it
 static Value seedNative(int argCount, Value* args) {
 	if (argCount >= 1 && IS_NUMBER(args[0])) {
 		uint32_t seed = (uint32_t)AS_NUMBER(args[0]);
-		well1024a_init(seed);
+		xorshift128plus_seed(seed);
 		return BOOL_VAL(true);
 	}
 	else {
@@ -214,7 +241,7 @@ static Value expNative(int argCount, Value* args) {
 
 COLD_FUNCTION
 void importNative_math() {
-	well1024a_init64(get_utc_milliseconds());
+	xorshift128plus_seed(get_utc_milliseconds());
 
 	defineNative_math("max", maxNative);
 	defineNative_math("min", minNative);
