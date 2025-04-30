@@ -16,10 +16,8 @@ typedef enum {
 	MODULE_TIME,
 	MODULE_SYSTEM,
 
-	MODULE_GLOBAL,//as the size too
+	BUILTIN_MODULE_COUNT,//as the size too
 } BuiltinMouduleType;
-
-#define BUILTIN_MODULE_COUNT MODULE_GLOBAL
 
 void importNative_math();
 void importNative_array();

@@ -222,49 +222,6 @@ void tableAddAll(Table* from, Table* to)
 	}
 }
 
-HOT_FUNCTION
-bool tableGet_g(Table* table, ObjString* key, Value* value) {
-	if (table->count == 0) return false;
-
-	Entry* entry = findEntry_g(table->entries, table->capacity, key, table->type);
-	if (entry->key == NULL) return false;
-
-	*value = entry->value;
-	return true;
-}
-
-HOT_FUNCTION
-bool tableSet_g(Table* table, ObjString* key, Value value)
-{
-	//if (table->count + 1 > table->capacity * TABLE_MAX_LOAD) {
-	if ((table->count + 1) > MUL_3_DIV_4((uint64_t)(table->capacity))) {
-		uint32_t capacity = GROW_CAPACITY(table->capacity);
-		adjustCapacity(table, capacity);
-	}
-
-	Entry* entry = findEntry_g(table->entries, table->capacity, key, table->type);
-	bool isNewKey = entry->key == NULL;
-	if (isNewKey && IS_NIL(entry->value)) table->count++;
-
-	entry->key = key;
-	entry->value = value;
-	return isNewKey;
-}
-
-HOT_FUNCTION
-bool tableDelete_g(Table* table, ObjString* key) {
-	if (table->count == 0) return false;
-
-	// Find the entry.
-	Entry* entry = findEntry_g(table->entries, table->capacity, key, table->type);
-	if (entry->key == NULL) return false;
-
-	// Place a tombstone in the entry. 
-	entry->key = NULL;
-	entry->value = BOOL_VAL(true);//value of tombstone is true
-	return true;
-}
-
 ObjString* tableFindString(Table* table, C_STR chars, uint32_t length, uint64_t hash)
 {
 	if (table->count == 0) return NULL;

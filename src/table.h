@@ -51,11 +51,6 @@ bool tableSet(Table* table, ObjString* key, Value value);
 bool tableDelete(Table* table, ObjString* key);
 void tableAddAll(Table* from, Table* to);
 
-//globol table fn
-bool tableGet_g(Table* table, ObjString* key, Value* value);
-bool tableSet_g(Table* table, ObjString* key, Value value);
-bool tableDelete_g(Table* table, ObjString* key);
-
 ObjString* tableFindString(Table* table, C_STR chars,uint32_t length, uint64_t hash);
 
 //void tableRemoveWhite(Table* table);
