@@ -154,7 +154,7 @@ typedef struct {
 	Obj obj;
 	uint32_t length;
 	uint32_t capacity;
-	void* payload;
+	Value* elements;
 } ObjArray;
 
 #define OBJ_GET_TYPE(obj)			((obj).type)
@@ -169,11 +169,9 @@ typedef struct {
 #define IS_CLASS(value)				isObjType(value, OBJ_CLASS)
 #define IS_INSTANCE(value)			isObjType(value, OBJ_INSTANCE)
 #define IS_STRING(value)			isObjType(value, OBJ_STRING)
-#define IS_STRING_BUILDER(value)	isObjType(value, OBJ_STRING_BUILDER)
 #define IS_ARRAY(value)				isObjType(value, OBJ_ARRAY)
 
 #define OBJ_IS_TYPE(array, arrayType)		(OBJ_GET_TYPE(array->obj) == arrayType)
-#define ARRAY_ELEMENT(array, type, index)	(((type*)array->payload)[index])
 #define ARRAY_IN_RANGE(array, index)		((index >= 0) && (index < array->length))
 
 #define AS_CLOSURE(value)			((ObjClosure*)AS_OBJ(value))
@@ -204,6 +202,6 @@ ObjBoundMethod* newBoundMethod(Value receiver, ObjClosure* method);
 ObjNative* newNative(NativeFn function);
 ObjClass* newClass(ObjString* name);
 ObjInstance* newInstance(ObjClass* klass);
-ObjArray* newArray(ObjType type);
+ObjArray* newArray();
 
 void reserveArray(ObjArray* array, uint64_t size);

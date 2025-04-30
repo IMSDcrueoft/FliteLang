@@ -5,7 +5,7 @@
 */
 #pragma once
 // switch on this to use debug
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 // log the compiled codes
 #define DEBUG_PRINT_CODE 1
 // this is too slow and print too much.

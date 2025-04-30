@@ -125,7 +125,7 @@ void freeObject(Obj* object) {
 	{
 		//they share the same struct
 		ObjArray* array = (ObjArray*)object;
-		FREE_ARRAY(Value , array->payload, array->capacity);
+		FREE_ARRAY(Value , array->elements, array->capacity);
 #if DEBUG_LOG_GC
 		printf("[gc] %p free buffer : %llu\n", (void*)array->payload, (uint64_t)array->capacity * sizeof(Value));
 #endif

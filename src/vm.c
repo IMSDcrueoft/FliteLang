@@ -826,7 +826,7 @@ static InterpretResult run()
 
 					vm.stackTop--;//it is number,so pop is allowed
 					if (ARRAY_IN_RANGE(array, num_index)) {
-						stack_replace(ARRAY_ELEMENT(array, Value, (uint32_t)num_index));
+						stack_replace(array->elements[(uint32_t)num_index]);
 					}
 					else {
 						stack_replace(NIL_VAL);
@@ -896,7 +896,7 @@ static InterpretResult run()
 					double num_index = AS_NUMBER(index);
 
 					if (ARRAY_IN_RANGE(array, num_index)) {
-						vm.stackTop[-3] = ARRAY_ELEMENT(array, Value, (uint32_t)num_index) = value;
+						vm.stackTop[-3] = array->elements[(uint32_t)num_index] = value;
 						vm.stackTop -= 2;
 						break;
 					}
@@ -969,7 +969,7 @@ static InterpretResult run()
 		}
 		case OP_NEW_ARRAY: {
 			uint16_t size = READ_SHORT();
-			ObjArray* array = newArray(OBJ_ARRAY);
+			ObjArray* array = newArray();
 			//push to prevent gc
 			stack_push(OBJ_VAL(array));
 
@@ -977,7 +977,7 @@ static InterpretResult run()
 				reserveArray(array, size);//allocate after push stack
 
 				//init the array
-				memcpy(array->payload, vm.stackTop - size - 1, sizeof(Value) * size);
+				memcpy(array->elements, vm.stackTop - size - 1, sizeof(Value) * size);
 				array->length = size;
 
 				//pop the values and the temp array at top

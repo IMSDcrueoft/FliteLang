@@ -37,7 +37,7 @@ void markValue(Value value)
 //}
 
 static void markArrayAny(ObjArray* array) {
-	Value* arrPtr = (Value*)array->payload;
+	Value* arrPtr = (Value*)array->elements;
 
 	for (uint32_t i = 0; i < array->length; ++i) {
 		Value value = arrPtr[i];

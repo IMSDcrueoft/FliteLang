@@ -128,11 +128,11 @@ ObjInstance* newInstance(ObjClass* klass) {
 }
 
 HOT_FUNCTION
-ObjArray* newArray(ObjType type) {
-	ObjArray* array = ALLOCATE_OBJ(ObjArray, type);
+ObjArray* newArray() {
+	ObjArray* array = ALLOCATE_OBJ(ObjArray, OBJ_ARRAY);
 	array->capacity = 0;
 	array->length = 0;
-	array->payload = NULL;
+	array->elements = NULL;
 	return array;
 }
 
@@ -147,8 +147,8 @@ void reserveArray(ObjArray* array, uint64_t size)
 	}
 
 #define GROW_TYPED_ARRAY(type, ptr, size) reallocate(ptr, sizeof(type) * array->capacity, sizeof(type) * size)
-	void* newPayload  = GROW_TYPED_ARRAY(Value, array->payload, size);
-	array->payload = newPayload;
+	Value* newPayload = GROW_TYPED_ARRAY(Value, array->elements, size);
+	array->elements = newPayload;
 	array->capacity = size;
 #undef GROW_TYPED_ARRAY
 }
@@ -317,7 +317,7 @@ static void printArray(ObjArray* array, bool isExpand) {
 			printf("[ ");
 			for (uint32_t i = 0; i < array->length;) {
 				
-				printValue(ARRAY_ELEMENT(array, Value, i));
+				printValue(array->elements[i]);
 
 				if (++i < array->length) {
 					printf(", ");
