@@ -1094,12 +1094,12 @@ static InterpretResult run()
 			break;
 		}
 		case OP_GET_LOCAL: {
-			uint32_t index = READ_SHORT();
+			uint32_t index = READ_BYTE();
 			stack_push(frame->slots[index]);
 			break;
 		}
 		case OP_SET_LOCAL: {
-			uint32_t index = READ_SHORT();
+			uint32_t index = READ_BYTE();
 			frame->slots[index] = vm.stackTop[-1];
 			break;
 		}
@@ -1113,7 +1113,7 @@ static InterpretResult run()
 			break;
 		}
 		case OP_POP_N: {
-			uint32_t index = READ_SHORT();
+			uint32_t index = READ_BYTE();
 			vm.stackTop -= index;
 			break;
 		}

@@ -285,8 +285,8 @@ static void beginScope() {
 
 static void emitPopCount(uint16_t popCount) {
 	if (popCount == 0) return;
-	if (popCount > 1) { // 16-bit index
-		emitBytes(3, OP_POP_N, (uint8_t)popCount, (uint8_t)(popCount >> 8));
+	if (popCount > 1) { // 8-bit index
+		emitBytes(2, OP_POP_N, (uint8_t)popCount);
 	}
 	else {
 		emitByte(OP_POP);
@@ -1091,11 +1091,11 @@ static void namedVariable(Token name, bool canAssign) {
 		if (canAssign && match(TOKEN_EQUAL)) {
 			expression();
 
-			// 16-bit index
-			emitBytes(3, OP_SET_LOCAL, (uint8_t)arg, (uint8_t)(arg >> 8));
+			// 8-bit index
+			emitBytes(2, OP_SET_LOCAL, (uint8_t)arg);
 		}
-		else { // 16-bit index
-			emitBytes(3, OP_GET_LOCAL, (uint8_t)arg, (uint8_t)(arg >> 8));
+		else { // 8-bit index
+			emitBytes(2, OP_GET_LOCAL, (uint8_t)arg);
 		}
 	}
 	else {

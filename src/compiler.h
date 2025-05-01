@@ -10,7 +10,7 @@
 
 #define LOCAL_INIT 64
 //local var
-#define LOCAL_MAX 1024
+#define LOCAL_MAX 255
 //array literal
 #define ARRAY_MAX 255
 //object literal

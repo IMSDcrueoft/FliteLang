@@ -239,11 +239,11 @@ uint32_t disassembleInstruction(Chunk* chunk, uint32_t offset) {
 	case OP_NEW_ARRAY:
 		return byteInstruction("OP_NEW_ARRAY", chunk, offset);
 	case OP_GET_LOCAL:
-		return shortInstruction("OP_GET_LOCAL", chunk, offset);
+		return byteInstruction("OP_GET_LOCAL", chunk, offset);
 	case OP_SET_LOCAL:
-		return shortInstruction("OP_SET_LOCAL", chunk, offset);
+		return byteInstruction("OP_SET_LOCAL", chunk, offset);
 	case OP_POP_N:
-		return shortInstruction("OP_POP_N", chunk, offset);
+		return byteInstruction("OP_POP_N", chunk, offset);
 
 	case OP_JUMP:
 		return jumpInstruction("OP_JUMP", 1, chunk, offset);
