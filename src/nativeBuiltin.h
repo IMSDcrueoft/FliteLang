@@ -11,7 +11,6 @@
 typedef enum {
 	MODULE_MATH,
 	MODULE_ARRAY,
-	MODULE_OBJECT,
 	MODULE_STRING,
 	MODULE_TIME,
 	MODULE_SYSTEM,
@@ -21,7 +20,6 @@ typedef enum {
 
 void importNative_math();
 void importNative_array();
-void importNative_object();
 void importNative_string();
 void importNative_time();
 void importNative_system();

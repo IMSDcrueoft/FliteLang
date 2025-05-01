@@ -209,7 +209,6 @@ static TokenType builtinType() {
 		{
 		case 'm':return checkModule(2, 3, "ath", TOKEN_MODULE_MATH);
 		case 'a':return checkModule(2, 4, "rray", TOKEN_MODULE_ARRAY);
-		case 'o':return checkModule(2, 5, "bject", TOKEN_MODULE_OBJECT);
 		case 's': {
 			if (scanner.current - scanner.start > 2) {
 				switch (scanner.start[2])

@@ -80,9 +80,6 @@
     <ClCompile Include="src\nativeArray.c">
       <Filter>FliteLang\source</Filter>
     </ClCompile>
-    <ClCompile Include="src\nativeObject.c">
-      <Filter>FliteLang\source</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\chunk.h">
