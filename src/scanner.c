@@ -232,7 +232,7 @@ static Token mention() {
 	TokenType type = builtinType();
 
 	if (type == TOKEN_NIL) {
-		return errorToken("Unexpected module (Available modules : @math, @array, @object, @string, @time, @system).");
+		return errorToken("Unexpected module (Available modules : @math, @array, @string, @time, @system).");
 	}
 
 	return makeToken(type);
