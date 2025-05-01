@@ -8,135 +8,11 @@ FliteLang is a subset of LoxFlux language (https://github.com/IMSDcrueoft/LoxFlu
 
 ### Syntax
 ``` ebnf
-
-```
-
-### Numbers
-
-- **Binary literal**: Use `0b` or `0B` prefix, e.g., `0b1010`.
-- **Hexadecimal literal**: Use `0x` or `0X` prefix, e.g., `0xFF`.
-- **Scientific notation**: Supports formats like `1.2e+3` and `123E-2`.
-
----
-
-### String
-
-- **Escape characters**: Supports escaping with backslash `\`, such as `\"` for double quotes; Example: `"\"hello world\""` renders as `"hello world"`.
-
----
-
-### Constants
-
-- **Constant range**: Expands to `0x00ffffff` (16,777,215).
-- **Constant deduplication**: For numbers and strings.
-
----
-
-### Variable
-
-- **Allows multiple definitions of variable constants**: (e.g., `var a = 1,b = 2,c = a + b;`).
-
-#### Global Variable
-
-- **Optimized global variable access**: Achieves `O(1)` time complexity. With dynamic index updates, direct index fetching can be achieved in almost all cases. Indexes are rarely invalidated, unless you frequently delete and then declare global variables that don't exist.
-
----
-
-#### Local Variable
-
-- **Local variable range**: Expands to support up to 1023 nested variables(Configurable up to 65534).
-
----
-
-### Bitwise Operations
-
-- **Bitwise AND (`&`)**  
-  Performs a logical AND on each pair of corresponding bits. Returns an integer result.  
-  **Example**: `0b1010 & 0b1100` evaluates to `0b1000` (decimal `8`).  
-
-- **Bitwise OR (`|`)**  
-  Performs a logical OR on each pair of corresponding bits. Returns an integer result.  
-  **Example**: `0b1010 | 0b1100` evaluates to `0b1110` (decimal `14`).  
-
-- **Bitwise XOR (`^`)**  
-  Performs a logical exclusive OR (XOR) on each pair of corresponding bits. Returns an integer result.  
-  **Example**: `0b1010 ^ 0b1100` evaluates to `0b0110` (decimal `6`).  
-
-- **Left Shift (`<<`)**  
-  Shifts the bits of the first operand left by the number of positions specified by the second operand.  
-  **Example**: `0b0001 << 2` evaluates to `0b0100` (decimal `4`).  
-
-- **Right Shift (`>>`)** (Sign-propagating)  
-  Shifts the bits right, preserving the sign bit (arithmetic shift).  
-  **Example**: `-8 >> 1` evaluates to `-4` (sign preserved).  
-
-- **Unsigned Right Shift (`>>>`)** (Zero-fill)  
-  Shifts the bits right, filling the leftmost bits with `0` (logical shift).  
-  **Example**: `-8 >>> 1` evaluates to `2147483644` (zero-fill, no sign preservation).  
-
-  #### Notes:
-  1. **Shift Behavior**:  
-    - **Negative shifts**: Negative shift values always return `0`.  
-    - **Large shifts**: Shifts beyond `31` bits are truncated via `shiftAmount % 32`.  
-  2. **Operands**: All operations convert operands to 32-bit integers before execution.  
-
----
-
-### Lambda
-- **Lambda Syntax**: An anonymous function can be declared inline using the `lambda` keyword. This provides a concise way to define functions without explicitly naming them, making it suitable for short, inline operations.
-- **Syntax**: The syntax for a lambda expression is `lambda (parameters) { body }`, where `parameters` are the input arguments and `body` contains the logic to be executed.
-- **Use Cases**: Lambda expressions are commonly used in functional programming patterns, such as passing functions as arguments to higher-order functions (e.g., `map`, `filter`, `reduce`).
-
----
-
-### Array
-
-- **Array Literals**: Supports defining array literals directly in the code(no more than `1024` within each `[]`)(Configurable up to 65535), making array creation more intuitive and convenient(nesting is supported).
-- **Syntax**: Use square brackets `[]` to define an array. Elements are separated by commas. Arrays can hold elements of any supported data type, including numbers, strings, objects, or even other arrays (nested arrays).
-
----
-
-### Instance
-
-- **Object Lierals**: Supports defining object literals directly with `{k1:v1,"k2":v2}`,making object creation more intuitive and convenient(Nesting is supported).
-- **Delete property**: Remove key-value pairs by assigning nil to the object.
-- **`instanceOf` keyword**:  Checks if an object is an instance of a specific class.
-- **`typeof` keyword**: Returns the string of item's subdivision type.
-- **`init()`**: Inline caching class init() method.
-
----
-
-### Subscript
-
-- **Indexing Syntax**: Access and modify array elements using subscript notation with square brackets.
-- **Bounds Checking**: Automatically checks for out-of-bounds, when you access an array out of bounds, it doesn't throw an error, but returns a `nil`.
-- **Zero-based Indexing**: The first element of the array is accessed with index `0`, the second with index `1`, and so on.
-- **Assignment via Subscript**: Modify array elements by assigning new values using the subscript operator.
-
-- **Object Key Access**: In addition to arrays, subscript notation also supports accessing object properties by key.
-- **Syntax**: Use square brackets `[]` with a string representing the key name.
-- **Assignment via Subscript for Objects**: Modify object properties by assigning new values using the subscript operator.
-
---- 
-
-### Loop
-
-- **`break` and `continue` keywords**: Supported within loops.
-
----
-
-### Branch Syntactic
-
-```ebnf
 branchState ::= "branch" "{" caseState "}"
 caseState  ::= (condState|noneState) | (condState+ noneState?)
 condState  ::= condition ":" statement
 noneState  ::= "none" ":" statement
 ```
-
-- **`branch`**: branch: This statement block simplifies `if-else if` chains and serves as an alternative to `switch-case` statements. The `none` branch (equivalent to default in switch statements) must appear last.
-
----
 
 ### Comment
 
@@ -212,21 +88,6 @@ These utilities are invaluable for working with structured data, especially in p
 
 ---
 
-The `@object` module provides utilities for type checking and object introspection. These functions are essential for determining the nature of values and ensuring type safety in dynamic environments.
-
-- **Type Checking**:
-  - `isClass`: Verifies if a value is a class.
-  - `isFunction`: Verifies if a value is a function|native-function.
-  - `isObject`: Verifies if a value is an object.
-  - `isArray`: Verifies if a value is an array.
-  - `isString`: Verifies if a value is a string.
-  - `isNumber`: Verifies whether a value is a number.
-  - `isBoolean`: Verifies whether a value is true|false.
-
-These functions are particularly useful for runtime type validation and debugging, allowing developers to write robust and error-resistant code.
-
----
-
 The `@string` module provides advanced string manipulation capabilities, supporting both basic operations and high-performance string building. It handles ASCII and UTF-8 encodings with memory-efficient strategies, ideal for text processing tasks.
 
 - **String Methods**:
@@ -267,10 +128,6 @@ These utilities are invaluable for monitoring and optimizing memory usage, espec
   - `/eval` : Load file and Run.
 
 ## Licenses
-The project **FliteLang** is based on `MIT` and uses a third-party projects.
+The project **FliteLang** is based on `MIT`.
   - Copyright (c) 2025 IMSDCrueoft
   - License: `MIT`
-
-1. **xxHash**
-   - Copyright (c) 2012-2021 Yann Collet
-   - License: `BSD 2-Clause`
