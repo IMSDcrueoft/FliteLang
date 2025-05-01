@@ -14,14 +14,14 @@
     <Filter Include="FliteLang\header">
       <UniqueIdentifier>{1e11b769-24d5-4b08-aa50-e9595555c191}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source">
+    <Filter Include="FliteLang\source\source">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
-      <Filter>source</Filter>
+      <Filter>FliteLang\source\source</Filter>
     </ClCompile>
     <ClCompile Include="src\chunk.c">
       <Filter>FliteLang\source</Filter>

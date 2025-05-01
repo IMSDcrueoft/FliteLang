@@ -98,25 +98,25 @@ static uint32_t shortInstruction(C_STR name, Chunk* chunk, uint32_t offset) {
 COLD_FUNCTION
 static uint32_t constantInstruction(C_STR name, Chunk* chunk, uint32_t offset) {
 	//24bit index
-	uint32_t constant = ((uint32_t)chunk->code[offset + 1]) | ((uint32_t)chunk->code[offset + 2] << 8) | ((uint32_t)chunk->code[offset + 3] << 16);
+	uint32_t constant = ((uint32_t)chunk->code[offset + 1]) | ((uint32_t)chunk->code[offset + 2] << 8);
 
 	printf("%-16s %4d '", name, constant);
 	printValue(vm.constants.values[constant]);
 	printf("'\n");
 
-	//OP_CONSTANT 4
-	return offset + 4;
+	//OP_CONSTANT 3
+	return offset + 3;
 }
 
 COLD_FUNCTION
 static uint32_t invokeInstruction(C_STR name, Chunk* chunk, uint32_t offset) {
 	//24bit index
-	uint32_t constant = ((uint32_t)chunk->code[offset + 1]) | ((uint32_t)chunk->code[offset + 2] << 8) | ((uint32_t)chunk->code[offset + 3] << 16);
-	uint8_t argCount = chunk->code[offset + 4];
+	uint32_t constant = ((uint32_t)chunk->code[offset + 1]) | ((uint32_t)chunk->code[offset + 2] << 8);
+	uint8_t argCount = chunk->code[offset + 3];
 	printf("%-16s (%d args) %4d '", name, argCount, constant);
 	printValue(vm.constants.values[constant]);
 	printf("'\n");
-	return offset + 5;
+	return offset + 4;
 }
 
 COLD_FUNCTION
@@ -161,14 +161,14 @@ uint32_t disassembleInstruction(Chunk* chunk, uint32_t offset) {
 
 	case OP_CLOSURE:{
 		//24bit index
-		uint32_t constant = ((uint32_t)chunk->code[offset + 1]) | ((uint32_t)chunk->code[offset + 2] << 8) | ((uint32_t)chunk->code[offset + 3] << 16);
+		uint32_t constant = ((uint32_t)chunk->code[offset + 1]) | ((uint32_t)chunk->code[offset + 2] << 8);
 
 		printf("%-16s %4d '", "OP_CLOSURE", constant);
 		printValue(vm.constants.values[constant]);
 		printf("'\n");
 
-		//OP_CONSTANT 4
-		offset += 4;
+		//OP_CONSTANT 3
+		offset += 3;
 
 		ObjFunction* function = AS_FUNCTION(vm.constants.values[constant]);
 		for (uint32_t j = 0; j < function->upvalueCount; j++) {

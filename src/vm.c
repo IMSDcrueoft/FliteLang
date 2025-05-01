@@ -128,7 +128,7 @@ void stack_push(Value value)
 		ptrdiff_t oldCapacity = vm.stackBoundary - vm.stack;
 		uint32_t capacity = GROW_CAPACITY(oldCapacity);
 
-		if (capacity > UINT24_COUNT) {
+		if (capacity > UINT16_COUNT) {
 			runtimeError("Stack overflow.");
 			return;
 		}
@@ -690,7 +690,6 @@ static InterpretResult run()
 
 #define READ_BYTE() (*(ip++))
 #define READ_SHORT() (ip += 2, (uint16_t)(ip[-2] | (ip[-1] << 8)))
-#define READ_24bits() (ip += 3, (uint32_t)(ip[-3] | (ip[-2] << 8) | (ip[-1] << 16)))
 #define READ_CONSTANT(index) (vm.constants.values[(index)])
 
 	// push(pop() op pop())
@@ -740,12 +739,12 @@ static InterpretResult run()
 		switch (instruction)
 		{
 		case OP_CONSTANT: {
-			Value constant = READ_CONSTANT(READ_24bits());
+			Value constant = READ_CONSTANT(READ_SHORT());
 			stack_push(constant);
 			break;
 		}
 		case OP_CLOSURE: {
-			Value constant = READ_CONSTANT(READ_24bits());
+			Value constant = READ_CONSTANT(READ_SHORT());
 			ObjFunction* function = AS_FUNCTION(constant);
 			ObjClosure* closure = newClosure(function);
 			stack_push(OBJ_VAL(closure));
@@ -763,13 +762,13 @@ static InterpretResult run()
 			break;
 		}
 		case OP_CLASS: {
-			Value constant = READ_CONSTANT(READ_24bits());
+			Value constant = READ_CONSTANT(READ_SHORT());
 			ObjString* name = AS_STRING(constant);
 			stack_push(OBJ_VAL(newClass(name)));
 			break;
 		}
 		case OP_METHOD: {
-			Value constant = READ_CONSTANT(READ_24bits());
+			Value constant = READ_CONSTANT(READ_SHORT());
 			ObjString* name = AS_STRING(constant);
 			defineMethod(name);
 			break;
@@ -781,7 +780,7 @@ static InterpretResult run()
 			}
 
 			ObjInstance* instance = AS_INSTANCE(vm.stackTop[-1]);
-			Value constant = READ_CONSTANT(READ_24bits());
+			Value constant = READ_CONSTANT(READ_SHORT());
 			ObjString* name = AS_STRING(constant);
 
 			Value value;
@@ -802,7 +801,7 @@ static InterpretResult run()
 			}
 
 			ObjInstance* instance = AS_INSTANCE(vm.stackTop[-2]);
-			Value constant = READ_CONSTANT(READ_24bits());
+			Value constant = READ_CONSTANT(READ_SHORT());
 			ObjString* name = AS_STRING(constant);
 			if (NOT_NIL(vm.stackTop[-1])) {
 				tableSet(&instance->fields, name, vm.stackTop[-1]);
@@ -936,7 +935,7 @@ static InterpretResult run()
 			return INTERPRET_RUNTIME_ERROR;
 		}
 		case OP_DEFINE_GLOBAL: {
-			Value constant = READ_CONSTANT(READ_24bits());
+			Value constant = READ_CONSTANT(READ_SHORT());
 			ObjString* name = AS_STRING(constant);
 			
 			tableSet(&vm.globals.fields, name, vm.stackTop[-1]);
@@ -944,7 +943,7 @@ static InterpretResult run()
 			break;
 		}
 		case OP_GET_GLOBAL: {
-			Value constant = READ_CONSTANT(READ_24bits());
+			Value constant = READ_CONSTANT(READ_SHORT());
 			ObjString* name = AS_STRING(constant);
 			Value value;
 
@@ -956,7 +955,7 @@ static InterpretResult run()
 			break;
 		}
 		case OP_SET_GLOBAL: {
-			Value constant = READ_CONSTANT(READ_24bits());
+			Value constant = READ_CONSTANT(READ_SHORT());
 			ObjString* name = AS_STRING(constant);
 
 			if (tableSet(&vm.globals.fields, name, vm.stackTop[-1])) {
@@ -992,7 +991,7 @@ static InterpretResult run()
 		}
 		case OP_NEW_PROPERTY: {
 			ObjInstance* instance = AS_INSTANCE(vm.stackTop[-2]);
-			Value constant = READ_CONSTANT(READ_24bits());
+			Value constant = READ_CONSTANT(READ_SHORT());
 			ObjString* name = AS_STRING(constant);
 			tableSet(&instance->fields, name, vm.stackTop[-1]);
 			stack_pop();
@@ -1157,7 +1156,7 @@ static InterpretResult run()
 			break;
 		}
 		case OP_INVOKE: {
-			Value constant = READ_CONSTANT(READ_24bits());
+			Value constant = READ_CONSTANT(READ_SHORT());
 			ObjString* method = AS_STRING(constant);
 			uint8_t argCount = READ_BYTE();
 
@@ -1205,7 +1204,6 @@ static InterpretResult run()
 	//the place the error happens
 #undef READ_BYTE
 #undef READ_SHORT
-#undef READ_24bits
 #undef READ_CONSTANT
 #undef BINARY_OP
 #undef BINARY_OP_MODULUS

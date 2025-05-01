@@ -113,8 +113,8 @@ static void emitBytes(uint32_t count, uint8_t byte, ...) {
 }
 
 static void emitConstantCommond(OpCode target, uint32_t index) {
-	if (index <= UINT24_MAX) {
-		emitBytes(4, target, (uint8_t)index, (uint8_t)(index >> 8), (uint8_t)(index >> 16));
+	if (index <= UINT16_MAX) {
+		emitBytes(3, target, (uint8_t)index, (uint8_t)(index >> 8));
 	}
 	else {
 		error("Too many constants in chunk.");
@@ -154,7 +154,7 @@ static uint32_t makeConstant(Value value) {
 		NumberEntry* entry = getNumberEntryInPool(&value);
 
 		if (entry->index == UINT32_MAX) {
-			return (entry->index = addConstant(value) & UINT24_MAX);//set value and return
+			return (entry->index = addConstant(value) & UINT16_MAX);//set value and return
 		}
 		else {
 			return entry->index;
@@ -167,13 +167,13 @@ static uint32_t makeConstant(Value value) {
 			Entry* entry = getStringEntryInPool(AS_STRING(value));
 
 			if (IS_BOOL(entry->value)) {
-				uint32_t index = addConstant(value) & UINT24_MAX;
+				uint32_t index = addConstant(value) & UINT16_MAX;
 				entry->value.type = VAL_NIL;
 				AS_BINARY(entry->value) = AS_BINARY(NIL_VAL) | index;
 				return index;
 			}
 			else {
-				return (AS_BINARY(entry->value) & UINT24_MAX);
+				return (AS_BINARY(entry->value) & UINT16_MAX);
 			}
 			break;
 		}
