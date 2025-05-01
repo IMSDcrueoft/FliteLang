@@ -6,7 +6,12 @@ FliteLang is a subset of LoxFlux language (https://github.com/IMSDcrueoft/LoxFlu
 
 ## List of FliteLang features
 
+### Keywords
+```
+and or for break continue branch none class this instanceOf typeof true false nil var print fun lambda return
+```
 ### Syntax
+
 ``` ebnf
 branchState ::= "branch" "{" caseState "}"
 caseState  ::= (condState|noneState) | (condState+ noneState?)
