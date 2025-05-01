@@ -26,9 +26,6 @@ static uint32_t builtinInStruction(C_STR name, Chunk* chunk, uint32_t offset) {
 	case MODULE_ARRAY:
 		printf("%-16s %-10s\n", name, "@array");
 		break;
-	case MODULE_OBJECT:
-		printf("%-16s %-10s\n", name, "@object");
-		break;
 	case MODULE_STRING:
 		printf("%-16s %-10s\n", name, "@string");
 		break;
