@@ -11,12 +11,97 @@ FliteLang is a subset of LoxFlux language (https://github.com/IMSDcrueoft/LoxFlu
 and or for break continue branch none class this instanceOf typeof true false nil var print fun lambda return
 ```
 ### Syntax
-
 ``` ebnf
-branchState ::= "branch" "{" caseState "}"
-caseState  ::= (condState|noneState) | (condState+ noneState?)
-condState  ::= condition ":" statement
-noneState  ::= "none" ":" statement
+(* ===== Lexical Rules ===== *)
+Letter          = "a".."z" | "A".."Z" | "_" ;
+Digit           = "0".."9" ;
+HexDigit        = Digit | "a".."f" | "A".."F" ;
+BinDigit        = "0" | "1" ;
+
+(* Operators from scanner.c token types *)
+Operator        = "+" | "-" | "*" | "/" | "%" 
+                | "==" | "!=" | "<" | "<=" | ">" | ">=" 
+                | "<<" | ">>" | ">>>" | "&" | "|" | "^" | "~" 
+                | "and" | "or" | "!" | "instanceof" | "typeof" ;
+
+(* Literals matching scanner.c implementation *)
+StringLit       = "\"" (^"\n\"\\" | "\\" .)* "\"" ;         (* TOKEN_STRING *)
+EscapeStringLit = "\"" (^"\n" | "\\" .)* "\"" ;             (* TOKEN_STRING_ESCAPE *)
+NumberLit       = Digit+ ("." Digit+)? ([eE] [+-]? Digit+)?  (* TOKEN_NUMBER *)
+                | "0" [bB] BinDigit+                         (* TOKEN_NUMBER_BIN *)
+                | "0" [xX] HexDigit+ ;                      (* TOKEN_NUMBER_HEX *)
+
+(* Identifiers and keywords from scanner.c's identifierType() *)
+Identifier      = Letter (Letter | Digit)* ;
+Keyword         = "class" | "fun" | "var" | "for" | "branch" 
+                | "print" | "return" | "this" | "true" | "false" 
+                | "nil" | "none" | "and" | "or" | "break" 
+                | "continue" | "lambda" | "typeof" ;
+
+(* Built-in modules from scanner.c's builtinType() *)
+BuiltinModule   = "@math" | "@array" | "@string" | "@time" | "@system" ;
+
+(* ===== Syntax Rules ===== *)
+Program         = { Declaration } EOF ;
+
+(* Declaration types from compiler.c's declaration() *)
+Declaration     = ClassDecl
+                | FunDecl
+                | VarDecl
+                | Statement ;
+
+(* Class structure from classDeclaration() *)
+ClassDecl       = "class" Identifier "{" { Method } "}" ;
+Method          = Identifier "(" [ Parameters ] ")" Block ;  (* TYPE_METHOD/TYPE_INITIALIZER *)
+
+(* Function declarations from funDeclaration() *)
+FunDecl         = "fun" Identifier "(" [ Parameters ] ")" Block ;
+Lambda          = "lambda" "(" [ Parameters ] ")" Block ;    (* TYPE_LAMBDA *)
+
+(* Variable declaration from varDeclaration() *)
+VarDecl         = "var" Identifier ("=" Expression)? ("," Identifier ("=" Expression)?)* ";" ;
+
+(* Statement types from compiler.c's statement() *)
+Statement       = ExprStmt
+                | ForStmt
+                | BranchStmt     (* branchStatement() *)
+                | PrintStmt
+                | ReturnStmt
+                | Block
+                | BreakStmt
+                | ContinueStmt ;
+
+(* Branch statement implementation from branchStatement() *)
+BranchStmt      = "branch" "{" { Case } [ DefaultCase ] "}" ;
+Case            = Expression ":" Statement ;                 (* branchCaseStatement() *)
+DefaultCase     = "none" ":" Statement ;                     (* none case handling *)
+
+(* Operator precedence levels from parsePrecedence() *)
+Expression      = Assignment ;
+Assignment      = Identifier "=" Assignment
+                | LogicOr ;         (* PREC_ASSIGNMENT *)
+LogicOr         = LogicAnd ( "or" LogicAnd )* ;  (* PREC_OR *)
+LogicAnd        = Equality ( "and" Equality )* ; (* PREC_AND *)
+Equality        = Comparison ( ("==" | "!=") Comparison )* ; (* PREC_EQUALITY *)
+Comparison      = Term ( ("<" | "<=" | ">" | ">=") Term )* ;(* PREC_COMPARISON *)
+Term            = Factor ( ("+" | "-") Factor )* ;           (* PREC_TERM *)
+Factor          = Unary ( ("*" | "/" | "%") Unary )* ;       (* PREC_FACTOR *)
+
+(* Postfix rules from dot(), call(), subscript() *)
+Postfix         = Primary ( "(" [ Arguments ] ")"           (* OP_CALL/OP_INVOKE *)
+                          | "." Identifier                  (* OP_GET_PROPERTY *)
+                          | "[" Expression "]" )* ;         (* OP_GET_SUBSCRIPT *)
+
+(* Primary expressions from compiler.c's primary rules *)
+Primary         = "true" | "false" | "nil" | BuiltinModule  (* builtinLiteral() *)
+                | NumberLit | StringLit | EscapeStringLit   (* number()/string() *)
+                | "this"                                    (* this_() *)
+                | "(" Expression ")"                        (* grouping() *)
+                | "[" [ Expression ( "," Expression )* ] "]"(* arrayLiteral() *)
+                | "{" [ (Identifier | StringLit) ":" Expression 
+                      ( "," (Identifier | StringLit) ":" Expression )* ] "}" (* objectLiteral() *)
+                | Identifier                                (* variable() *)
+                | Lambda ;                                  (* lambda() *)
 ```
 
 ### Comment
