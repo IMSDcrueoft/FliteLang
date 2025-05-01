@@ -960,7 +960,7 @@ static void arrayLiteral(bool canAssign) {
 		return;
 	}
 
-	emitBytes(3, OP_NEW_ARRAY, (uint8_t)elementCount, (uint8_t)(elementCount >> 8));  //make array
+	emitBytes(2, OP_NEW_ARRAY, (uint8_t)elementCount);  //make array
 }
 
 static void objectLiteral(bool canAssign) {

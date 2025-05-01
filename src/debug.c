@@ -237,7 +237,7 @@ uint32_t disassembleInstruction(Chunk* chunk, uint32_t offset) {
 		return simpleInstruction("OP_NEW_OBJECT", offset);
 
 	case OP_NEW_ARRAY:
-		return shortInstruction("OP_NEW_ARRAY", chunk, offset);
+		return byteInstruction("OP_NEW_ARRAY", chunk, offset);
 	case OP_GET_LOCAL:
 		return shortInstruction("OP_GET_LOCAL", chunk, offset);
 	case OP_SET_LOCAL:

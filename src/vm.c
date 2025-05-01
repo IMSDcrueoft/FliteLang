@@ -967,7 +967,7 @@ static InterpretResult run()
 			break;
 		}
 		case OP_NEW_ARRAY: {
-			uint16_t size = READ_SHORT();
+			uint16_t size = READ_BYTE();
 			ObjArray* array = newArray();
 			//push to prevent gc
 			stack_push(OBJ_VAL(array));

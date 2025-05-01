@@ -12,7 +12,7 @@
 //local var
 #define LOCAL_MAX 1024
 //array literal
-#define ARRAY_MAX 1024
+#define ARRAY_MAX 255
 //object literal
 #define OBJECT_MAX_NESTING 12
 //function nesting
