@@ -126,7 +126,7 @@ Primary         = "true" | "false" | "nil" | BuiltinModule  (* builtinLiteral() 
 
 There are some namespace objects that start with `'@'` available, and since they are not in the global scope, the initial state of the global scope is a "completely clean" state. 
 
-#### `@math` `@array` `@object` `@string` `@time` `@sys`
+#### `@math` `@array` `@string` `@time` `@sys`
 
 The `@math` module provides a comprehensive set of mathematical functions and utilities, implemented as native bindings for efficiency and ease of use. These functions are accessible globally and can be used directly in scripts or applications.
 
@@ -173,6 +173,7 @@ The `@array` module provides robust support for working with arrays, enabling ef
   - `length`: Returns the current number of elements in the array.
   - `pop`: Removes and returns the last element of the array. If the array is empty, it may return nil or throw an error, depending on configuration.
   - `push`: Appends one or more elements to the end of the array.
+  - `Array`: The constructor of array.
 
 These utilities are invaluable for working with structured data, especially in performance-critical applications or environments where memory usage must be tightly controlled. They enable developers to manage arrays explicitly and efficiently.
 
