@@ -191,6 +191,17 @@ This module balances performance and safety for both simple text tasks and large
 
 ---
 
+The @time module provides precise timing functions for measuring and working with time intervals. These functions are implemented as native bindings for efficiency and accuracy, making them suitable for performance-critical applications, benchmarking, and timestamp generation.
+
+- **Time Methods**:
+  - `milli`: Returns the current time in milliseconds (1e-3 seconds) since an arbitrary reference point.
+  - `second`: Returns the current time in seconds since an arbitrary reference point.
+  - `utc`: Returns the current UTC time in seconds since the Unix epoch (January 1, 1970).
+
+These utilities enable precise time management in applications requiring performance optimization or temporal coordination.
+
+---
+
 The `@sys` module offers low-level system utilities, primarily focused on memory management and garbage collection. These functions provide insights into the runtime environment and allow fine-grained control over resource allocation.
 
 - **Log**

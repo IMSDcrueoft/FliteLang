@@ -241,7 +241,7 @@ static Value expNative(int argCount, Value* args) {
 
 COLD_FUNCTION
 void importNative_math() {
-	xorshift128plus_seed(get_utc_milliseconds());
+	xorshift128plus_seed(get_utc_seconds());
 
 	defineNative_math("max", maxNative);
 	defineNative_math("min", minNative);

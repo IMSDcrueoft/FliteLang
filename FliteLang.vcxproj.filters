@@ -44,7 +44,7 @@
     <ClCompile Include="src\scanner.c">
       <Filter>FliteLang\source</Filter>
     </ClCompile>
-    <ClCompile Include="src\timer.cpp">
+    <ClCompile Include="src\timer.c">
       <Filter>FliteLang\source</Filter>
     </ClCompile>
     <ClCompile Include="src\value.c">
