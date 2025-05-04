@@ -110,12 +110,6 @@ Primary         = "true" | "false" | "nil" | BuiltinModule  (* builtinLiteral() 
 
 ---
 
-### Optional object header compression switch
-
-- **48-bit pointer**: Compress the object header from 16 bytes to 8 bytes.
-
----
-
 ### GC
 
 - **Detached static objects and dynamic objects**: Static objects such as strings/functions, they don't usually bloat very much, so I think it's a viable option not to recycle them.

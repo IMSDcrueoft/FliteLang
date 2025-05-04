@@ -10,7 +10,7 @@
 #include "gc.h"
 
 #define TABLE_MAX_LOAD 0.75 // 3/4
-#define MUL_3_DIV_4(x) (((x << 1) + (x)) >> 2)
+#define MUL_3_DIV_4(x) ((x) * 3 / 4)
 
 void table_init(Table* table)
 {
