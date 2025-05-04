@@ -485,17 +485,6 @@ static void defineVariable(uint32_t global) {
 	emitConstantCommond(OP_DEFINE_GLOBAL, global);
 }
 
-static void defineConst(uint32_t global) {
-	//it is a local one
-	if (current->scopeDepth > 0) {
-		markInitialized();
-		return;
-	}
-	else {
-		errorAtCurrent("Constant can only be defined in the local scope.");
-	}
-}
-
 static uint8_t argumentList() {
 	uint8_t argCount = 0;
 	if (!check(TOKEN_RIGHT_PAREN)) {
@@ -624,7 +613,7 @@ static void classDeclaration() {
 
 static void funDeclaration() {
 	uint32_t arg = parseVariable("Expect function name.");
-	markInitialized(false);
+	markInitialized();
 	function(TYPE_FUNCTION);
 	defineVariable(arg);
 }

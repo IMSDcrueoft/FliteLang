@@ -38,50 +38,6 @@ static void stack_reset()
 }
 
 COLD_FUNCTION
-static bool throwError(Value error, C_STR format, ...) {
-	fprintf(stderr, "[RuntimeError] ");
-
-	va_list args;
-	va_start(args, format);
-	vfprintf(stderr, format, args);
-	va_end(args);
-	fputs("\n", stderr);
-
-	if ((vm.frameCount - 1) >= 0) {
-		vm.frames[vm.frameCount - 1].ip = *vm.ip_error;
-	}
-
-	for (int32_t i = vm.frameCount - 1; i >= 0; i--) {
-		CallFrame* frame = &vm.frames[i];
-
-		ObjFunction* function = frame->closure->function;
-		uint64_t instruction = frame->ip - function->chunk.code - 1;
-
-		uint32_t line = getLine(&function->chunk.lines, (uint32_t)instruction);
-
-		fprintf(stderr, "[line %d] in ", line);
-		if (function->name != NULL) {
-			if (function->name->length != 0) {
-				fprintf(stderr, "%s() : (%d)\n", function->name->chars, function->id);
-			}
-			else {
-				fprintf(stderr, "<lambda>() : (%d)\n", function->id);
-			}
-		}
-		else {
-			fprintf(stderr, "<script> : (%d)\n", function->id);
-		}
-	}
-
-	printf("[ErrorInfo] ");
-	printValue(error);
-	printf("\n");
-
-	stack_reset();
-	return false;
-}
-
-COLD_FUNCTION
 static void runtimeError(C_STR format, ...) {
 	fprintf(stderr, "[RuntimeError] ");
 
