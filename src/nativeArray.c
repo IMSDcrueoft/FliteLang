@@ -112,35 +112,6 @@ static Value resizeNative(int argCount, Value* args) {
 	return BOOL_VAL(false);
 }
 
-static Value ArrayNative(int argCount, Value* args) {
-	uint32_t length = 0;
-
-	if (argCount >= 1 && IS_NUMBER(args[0])) {
-		double size = AS_NUMBER(args[0]);
-
-		//no error
-		if (size > 0 && size <= ARRAYLIKE_MAX) {
-			length = (uint32_t)size;
-		}
-		else {
-			fprintf(stderr, "Array size overflow\n");
-			exit(1);
-		}
-	}
-
-	ObjArray* array = newArray();
-	stack_push(OBJ_VAL(array));
-	reserveArray(array, length);
-
-	while (array->length < length)
-	{
-		array->elements[array->length] = NIL_VAL;
-		array->length++;
-	}
-
-	return OBJ_VAL(array);
-}
-
 COLD_FUNCTION
 void importNative_array() {
 	//array
@@ -148,6 +119,4 @@ void importNative_array() {
 	defineNative_array("length", lengthNative);
 	defineNative_array("pop", popNative);
 	defineNative_array("push", pushNative);
-
-	defineNative_array("Array", ArrayNative);
 }
