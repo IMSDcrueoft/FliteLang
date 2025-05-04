@@ -30,9 +30,6 @@ typedef struct {
 
 	// deduplicated global constant table
 	ValueArray constants;
-	// In order to repurpose the voids caused by GC
-	// create a constant void table to record and reuse
-	ValueHoles constantHoles;
 
 	//pool
 	Table strings;
@@ -105,10 +102,8 @@ InterpretResult interpret_repl(C_STR source);
 //for builtin
 void defineNative_math(C_STR name, NativeFn function);
 void defineNative_array(C_STR name, NativeFn function);
-void defineNative_object(C_STR name, NativeFn function);
 void defineNative_string(C_STR name, NativeFn function);
 void defineNative_time(C_STR name, NativeFn function);
-void defineNative_ctor(C_STR name, NativeFn function);
 void defineNative_system(C_STR name, NativeFn function);
 //for global
 void defineNative_global(C_STR name, NativeFn function);

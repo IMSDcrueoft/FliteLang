@@ -9,9 +9,6 @@
 #include "table.h"
 #include "chunk.h"
 
-//compress the ptr to 48bits
-#define ENABLE_COMPRESSION_OBJ_HEADER 1
-
 typedef enum {
 	//objects that don't gc
 	OBJ_STRING,
@@ -47,29 +44,6 @@ typedef enum {
 extern const C_STR objTypeInfo[];
 #endif
 
-#if ENABLE_COMPRESSION_OBJ_HEADER
-struct Obj {
-	union {
-		struct
-		{
-			uint8_t type;
-			uint8_t isMarked;
-			uint8_t padding[6]; //high 48bits for ptr low48bits
-		};
-		uintptr_t boxedNext;	//ptr: The user-space pointer's high 16 bits can be 0 directly,the high 16 bits of the pointer depends on the 47th bit
-	};
-};
-#define OBJ_PTR_SET_NEXT(obj,nextPtr)	(obj->boxedNext = (obj->boxedNext & UINT16_MAX) | ((uintptr_t)nextPtr << 16))
-#define OBJ_PTR_GET_NEXT(obj)			(Obj*)(obj->boxedNext >> 16)
-
-static inline Obj stateLess_obj_header(ObjType objType) {
-	Obj o = { .boxedNext = (uintptr_t)NULL << 16 };
-	o.isMarked = 1;
-	o.type = objType;
-	return o;
-}
-
-#else
 struct Obj {
 	struct
 	{
@@ -85,8 +59,6 @@ struct Obj {
 static inline Obj stateLess_obj_header(ObjType objType) {
 	return (Obj) { .next = NULL, .isMarked = 1, .type = objType };
 }
-
-#endif
 
 typedef struct {
 	Obj obj;

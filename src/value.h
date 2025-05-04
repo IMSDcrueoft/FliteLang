@@ -36,14 +36,6 @@ typedef struct {
 	Value* values;
 } ValueArray;
 
-#define VALUEHOLES_EMPTY UINT32_MAX
-
-typedef struct {
-	uint32_t count;
-	uint32_t capacity;
-	uint32_t* holes;
-} ValueHoles;
-
 #define SAME_VALUE_TYPE(a,b)	((a).type == (b).type)
 
 #define IS_BOOL(value)    ((value).type == VAL_BOOL)
@@ -76,9 +68,3 @@ void valueArray_init(ValueArray* array);
 void valueArray_write(ValueArray* array, Value value);
 void valueArray_writeAt(ValueArray* array, Value value, uint32_t index);
 void valueArray_free(ValueArray* array);
-
-void valueHoles_init(ValueHoles* holes);
-void valueHoles_free(ValueHoles* holes);
-void valueHoles_push(ValueHoles* holes, uint32_t index);
-void valueHoles_pop(ValueHoles* holes);
-uint32_t valueHoles_get(ValueHoles* holes);
