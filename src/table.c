@@ -75,50 +75,6 @@ static Entry* findEntry(Entry* entries, uint32_t capacity, ObjString* key, Table
 	}
 }
 
-//for global table
-HOT_FUNCTION
-static Entry* findEntry_g(Entry* entries, uint32_t capacity, ObjString* key, TableType type) {
-	//check it
-	Entry* entry = NULL;
-
-	//find by cache symbol
-	if ((key->symbol != INVALID_OBJ_STRING_SYMBOL)) {
-		entry = &entries[key->symbol];
-
-		if (entry->key == key) {
-			// We found the key.
-			return entry;
-		}
-	}
-
-	uint32_t index = key->hash & (capacity - 1);
-	Entry* tombstone = NULL;
-
-	while (true) {
-		entry = &entries[index];
-
-		if (entry->key == NULL) {
-			if (IS_NIL(entry->value)) {
-				key->symbol = index;
-				// if we find hole after tombstone ,it means the tombstone is target else return the hole
-				// Empty entry.
-				return tombstone != NULL ? tombstone : entry;
-			}
-			else {
-				// We found a tombstone.
-				if (tombstone == NULL) tombstone = entry;
-			}
-		}
-		else if (entry->key == key) {
-			key->symbol = index;
-			// We found the key.
-			return entry;
-		}
-
-		index = (index + 1) & (capacity - 1);
-	}
-}
-
 static void adjustCapacity(Table* table, uint32_t capacity) {
 	//we need re input, so don't reallocate
 	Entry* entries = ALLOCATE(Entry, capacity);
