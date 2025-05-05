@@ -39,7 +39,7 @@ Keyword         = "class" | "fun" | "var" | "for" | "branch"
                 | "continue" | "typeof" ;
 
 (* Built-in modules from scanner.c's builtinType() *)
-BuiltinModule   = "@math" | "@array" | "@string" | "@time" | "@system" ;
+BuiltinModule   = "@math" | "@array" | "@string" | "@time" | "@sys" ;
 
 (* ===== Syntax Rules ===== *)
 Program         = { Declaration } EOF ;
@@ -195,7 +195,7 @@ These utilities enable precise time management in applications requiring perform
 The `@sys` module offers low-level system utilities, primarily focused on memory management and garbage collection. These functions provide insights into the runtime environment and allow fine-grained control over resource allocation.
 
 - **Log**
-  - `log`: Allows for multiple inputs and behaves slightly differently.It automatically expands the contents of the array and prints (but not recursively).
+  - `log`: Allows for multiple inputs and automatically expands the contents of the array and prints (but not recursively).
 
 - **Garbage Collection**:
   - `gc`: Triggers a full garbage collection cycle.
