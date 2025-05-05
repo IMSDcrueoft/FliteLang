@@ -60,12 +60,7 @@ static void runtimeError(C_STR format, ...) {
 
 		fprintf(stderr, "[line %d] in ", line);
 		if (function->name != NULL) {
-			if (function->name->length != 0) {
-				fprintf(stderr, "%s() : (%d)\n", function->name->chars, function->id);
-			}
-			else {
-				fprintf(stderr, "<lambda>() : (%d)\n", function->id);
-			}
+			fprintf(stderr, "%s() : (%d)\n", function->name->chars, function->id);
 		}
 		else {
 			fprintf(stderr, "<script> : (%d)\n", function->id);

@@ -69,7 +69,6 @@ typedef struct LoopContext{
 
 typedef enum {
 	TYPE_FUNCTION,
-	TYPE_LAMBDA,
 	TYPE_METHOD, //class method
 	TYPE_INITIALIZER, //class init
 	TYPE_SCRIPT

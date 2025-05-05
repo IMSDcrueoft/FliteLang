@@ -224,22 +224,15 @@ static void initCompiler(Compiler* compiler, FunctionType type) {
 	compiler->objectNestingDepth = 0;
 
 	//it's a function
-	switch (type) {
-	case TYPE_FUNCTION:
+	if (type == TYPE_FUNCTION) {
 		compiler->function->name = copyString(parser.previous.start, parser.previous.length, false);
-		break;
-	case TYPE_LAMBDA:
-		compiler->function->name = copyString("", 0, false);
-		break;
-	default:
-		break;
 	}
 
 	Local* local = &compiler->locals[compiler->localCount++];
 	local->depth = 0;
 	local->isCaptured = false;
 
-	if (type != TYPE_FUNCTION && type != TYPE_LAMBDA) {
+	if (type != TYPE_FUNCTION) {
 		local->name.start = "this";
 		local->name.length = 4;
 	}
@@ -272,7 +265,7 @@ static ObjFunction* endCompiler() {
 #if DEBUG_PRINT_CODE
 	if (!parser.hadError) {
 		disassembleChunk(currentChunk(), (function->name != NULL)
-			? ((function->name->length != 0) ? function->name->chars : "<lambda>") : "<script>", function->id);
+			? function->name->chars : "<script>", function->id);
 	}
 #endif
 	current = current->enclosing;
@@ -531,9 +524,6 @@ static void function(FunctionType type) {
 	if (type == TYPE_FUNCTION) {
 		consume(TOKEN_LEFT_PAREN, "Expect '(' after function name.");
 	}
-	else {
-		consume(TOKEN_LEFT_PAREN, "Expect '(' after lambda.");
-	}
 
 	if (!check(TOKEN_RIGHT_PAREN)) {
 		do {
@@ -564,11 +554,6 @@ static void function(FunctionType type) {
 	}
 
 	freeLocals(&compiler);
-}
-
-static void lambda(bool canAssign) {
-	FunctionType type = TYPE_LAMBDA;
-	function(type);
 }
 
 static void method() {
@@ -1186,7 +1171,6 @@ ParseRule rules[] = {
 	[TOKEN_FALSE] = {literal,     NULL,   PREC_NONE},
 	[TOKEN_FOR] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_FUN] = {NULL,     NULL,   PREC_NONE},
-	[TOKEN_LAMBDA] = {lambda,	NULL,	PREC_NONE},
 	[TOKEN_BRANCH] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_NONE] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_NIL] = {literal,     NULL,   PREC_NONE},

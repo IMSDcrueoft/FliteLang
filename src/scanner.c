@@ -164,7 +164,6 @@ static TokenType identifierType() {
 		break;
 	}
 	case 'i':  return checkKeyword(1, 9, "nstanceOf", TOKEN_INSTANCE_OF);
-	case 'l': return checkKeyword(1, 5, "ambda", TOKEN_LAMBDA);
 	case 'n': {
 		if (scanner.current - scanner.start > 1) {
 			switch (scanner.start[1]) {

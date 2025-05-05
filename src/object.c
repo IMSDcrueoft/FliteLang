@@ -300,9 +300,6 @@ static void printFunction(ObjFunction* function) {
 	if (function->name == NULL) {
 		printf("<script> (%d)", function->id);
 	}
-	else if (function->name->length == 0) {
-		printf("<lambda> (%d)", function->id);
-	}
 	else {
 		printf("<fn %s> (%d)", function->name->chars, function->id);
 	}
