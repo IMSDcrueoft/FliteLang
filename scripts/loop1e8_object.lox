@@ -1,7 +1,6 @@
 class Object{}
 {
     var a = Object();
-    @sys.log(a instanceOf Object);
 
     var start = @time.milli();
     for(a.i = 0;a.i < 1e8;){

@@ -8,7 +8,7 @@ FliteLang is a subset of LoxFlux language (https://github.com/IMSDcrueoft/LoxFlu
 
 ### Keywords
 ```
-and or for break continue branch none class this instanceOf typeof true false nil var fun return
+and or for break continue branch none class this typeof true false nil var fun return
 ```
 ### Syntax
 ``` ebnf
@@ -22,7 +22,7 @@ BinDigit        = "0" | "1" ;
 Operator        = "+" | "-" | "*" | "/" | "%" 
                 | "==" | "!=" | "<" | "<=" | ">" | ">=" 
                 | "<<" | ">>" | ">>>" | "&" | "|" | "^" | "~" 
-                | "and" | "or" | "!" | "instanceof" | "typeof" ;
+                | "and" | "or" | "!" | "typeof" ;
 
 (* Literals matching scanner.c implementation *)
 StringLit       = "\"" (^"\n\"\\" | "\\" .)* "\"" ;         (* TOKEN_STRING *)
