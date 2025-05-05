@@ -34,7 +34,6 @@ typedef enum {
 	PREC_AND,         // and
 	PREC_BITWISE,	  // |, ^, &, <<, >>, >>>
 	PREC_EQUALITY,    // == !=
-	PREC_INSTANCEOF,  // instanceOf
 	PREC_COMPARISON,  // <, >, <=, >=
 	PREC_TERM,        // +, -
 	PREC_FACTOR,      // *, /, %

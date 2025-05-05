@@ -63,7 +63,6 @@ typedef enum {
 	OP_NEW_PROPERTY,	// set property but no pop
 
 	//slow func
-	OP_INSTANCE_OF,		// instance
 	OP_TYPE_OF,			// typeof
 	OP_CLASS,			// create class
 	OP_METHOD,			// make class func

@@ -202,8 +202,6 @@ uint32_t disassembleInstruction(Chunk* chunk, uint32_t offset) {
 		return simpleInstruction("OP_GREATER_EQUAL", offset);
 	case OP_LESS_EQUAL:
 		return simpleInstruction("OP_LESS_EQUAL", offset);
-	case OP_INSTANCE_OF:
-		return simpleInstruction("OP_INSTANCE_OF", offset);
 
 	case OP_BITWISE:
 		return bitwiseInStruction("OP_BITWISE", chunk, offset);

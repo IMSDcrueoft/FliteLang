@@ -955,12 +955,6 @@ static InterpretResult run()
 		case OP_LESS:     BINARY_OP(BOOL_VAL, < ); break;
 		case OP_GREATER_EQUAL:  BINARY_OP(BOOL_VAL, >= ); break;
 		case OP_LESS_EQUAL:     BINARY_OP(BOOL_VAL, <= ); break;
-		case OP_INSTANCE_OF: {
-			bool isInstanceOf = (IS_INSTANCE(vm.stackTop[-2]) && IS_CLASS(vm.stackTop[-1])) && (AS_INSTANCE(vm.stackTop[-2])->klass == AS_CLASS(vm.stackTop[-1]));
-			vm.stackTop[-2] = BOOL_VAL(isInstanceOf);
-			vm.stackTop--;
-			break;
-		}
 		case OP_TYPE_OF: {
 			getTypeof();
 			break;
