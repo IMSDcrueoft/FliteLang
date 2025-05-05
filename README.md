@@ -8,7 +8,7 @@ FliteLang is a subset of LoxFlux language (https://github.com/IMSDcrueoft/LoxFlu
 
 ### Keywords
 ```
-and or for break continue branch none class this instanceOf typeof true false nil var print fun lambda return
+and or for break continue branch none class this instanceOf typeof true false nil var fun lambda return
 ```
 ### Syntax
 ``` ebnf
@@ -34,7 +34,7 @@ NumberLit       = Digit+ ("." Digit+)? ([eE] [+-]? Digit+)?  (* TOKEN_NUMBER *)
 (* Identifiers and keywords from scanner.c's identifierType() *)
 Identifier      = Letter (Letter | Digit)* ;
 Keyword         = "class" | "fun" | "var" | "for" | "branch" 
-                | "print" | "return" | "this" | "true" | "false" 
+                | "return" | "this" | "true" | "false" 
                 | "nil" | "none" | "and" | "or" | "break" 
                 | "continue" | "lambda" | "typeof" ;
 
@@ -65,7 +65,6 @@ VarDecl         = "var" Identifier ("=" Expression)? ("," Identifier ("=" Expres
 Statement       = ExprStmt
                 | ForStmt
                 | BranchStmt     (* branchStatement() *)
-                | PrintStmt
                 | ReturnStmt
                 | Block
                 | BreakStmt
@@ -198,7 +197,7 @@ These utilities enable precise time management in applications requiring perform
 The `@sys` module offers low-level system utilities, primarily focused on memory management and garbage collection. These functions provide insights into the runtime environment and allow fine-grained control over resource allocation.
 
 - **Log**
-  - `log`: Unlike the `print` keyword, it allows for multiple inputs and behaves slightly differently.It automatically expands the contents of the array and prints (but not recursively).
+  - `log`: Allows for multiple inputs and behaves slightly differently.It automatically expands the contents of the array and prints (but not recursively).
 
 - **Garbage Collection**:
   - `gc`: Triggers a full garbage collection cycle.

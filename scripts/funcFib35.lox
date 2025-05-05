@@ -6,5 +6,5 @@ fun fib(n) {
 }
 
 var start = @time.milli();
-print fib(35);
-print @time.milli() - start;
+@sys.log(fib(35));
+@sys.log(@time.milli() - start);

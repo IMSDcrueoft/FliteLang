@@ -1,18 +1,18 @@
 {
     var arr = [1];
-    print @array.length(arr);
+    @sys.log(@array.length(arr));
     @array.resize(arr,16);
-    print @array.length(arr);
+    @sys.log(@array.length(arr));
 
     var start = @time.milli();
     for(arr[0] = 1e8;arr[0] > 0;){
         arr[0] = arr[0] - 1;
     }
-    print @time.milli() - start;
+    @sys.log(@time.milli() - start);
 
     start = @time.milli();
     for(arr[0] = 0;arr[0] < 1e8;){
         arr[0] = arr[0] + 1;
     }
-    print @time.milli() - start;
+    @sys.log(@time.milli() - start);
 }
