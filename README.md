@@ -8,7 +8,7 @@ FliteLang is a subset of LoxFlux language (https://github.com/IMSDcrueoft/LoxFlu
 
 ### Keywords
 ```
-and or for break continue branch none class this instanceOf typeof true false nil var fun lambda return
+and or for break continue branch none class this instanceOf typeof true false nil var fun return
 ```
 ### Syntax
 ``` ebnf
@@ -36,7 +36,7 @@ Identifier      = Letter (Letter | Digit)* ;
 Keyword         = "class" | "fun" | "var" | "for" | "branch" 
                 | "return" | "this" | "true" | "false" 
                 | "nil" | "none" | "and" | "or" | "break" 
-                | "continue" | "lambda" | "typeof" ;
+                | "continue" | "typeof" ;
 
 (* Built-in modules from scanner.c's builtinType() *)
 BuiltinModule   = "@math" | "@array" | "@string" | "@time" | "@system" ;
@@ -56,7 +56,6 @@ Method          = Identifier "(" [ Parameters ] ")" Block ;  (* TYPE_METHOD/TYPE
 
 (* Function declarations from funDeclaration() *)
 FunDecl         = "fun" Identifier "(" [ Parameters ] ")" Block ;
-Lambda          = "lambda" "(" [ Parameters ] ")" Block ;    (* TYPE_LAMBDA *)
 
 (* Variable declaration from varDeclaration() *)
 VarDecl         = "var" Identifier ("=" Expression)? ("," Identifier ("=" Expression)?)* ";" ;
@@ -100,7 +99,6 @@ Primary         = "true" | "false" | "nil" | BuiltinModule  (* builtinLiteral() 
                 | "{" [ (Identifier | StringLit) ":" Expression 
                       ( "," (Identifier | StringLit) ":" Expression )* ] "}" (* objectLiteral() *)
                 | Identifier                                (* variable() *)
-                | Lambda ;                                  (* lambda() *)
 ```
 
 ### Comment
