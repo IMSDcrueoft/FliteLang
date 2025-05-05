@@ -1020,15 +1020,6 @@ static InterpretResult run()
 				return INTERPRET_RUNTIME_ERROR;
 			}
 		}
-
-		case OP_PRINT: {
-#if DEBUG_MODE
-			printf("[print] ");
-#endif
-			printValue(stack_pop());
-			printf("\n");
-			break;
-		}
 		case OP_GET_LOCAL: {
 			uint32_t index = READ_BYTE();
 			stack_push(frame->slots[index]);

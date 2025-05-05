@@ -744,12 +744,6 @@ static void branchStatement() {
 	branchCaseStatement();
 }
 
-static void printStatement() {
-	expression();
-	consume(TOKEN_SEMICOLON, "Expect ';' after value.");
-	emitByte(OP_PRINT);
-}
-
 static void returnStatement() {
 	if (current->type == TYPE_SCRIPT) {
 		error("Can't return from top-level code.");
@@ -819,7 +813,6 @@ static void synchronize() {
 		case TOKEN_VAR:
 		case TOKEN_FOR:
 		case TOKEN_BRANCH:
-		case TOKEN_PRINT:
 		case TOKEN_RETURN:
 			return;
 
@@ -832,10 +825,7 @@ static void synchronize() {
 }
 
 static void statement() {
-	if (match(TOKEN_PRINT)) {
-		printStatement();
-	}
-	else if (match(TOKEN_BRANCH)) {
+	if (match(TOKEN_BRANCH)) {
 		branchStatement();
 	}
 	else if (match(TOKEN_RETURN)) {
@@ -1201,7 +1191,6 @@ ParseRule rules[] = {
 	[TOKEN_NONE] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_NIL] = {literal,     NULL,   PREC_NONE},
 	[TOKEN_OR] = {NULL,     or_,   PREC_OR},
-	[TOKEN_PRINT] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_RETURN] = {NULL,     NULL,   PREC_NONE},
 	[TOKEN_THIS] = {this_,     NULL,   PREC_NONE},
 	[TOKEN_TRUE] = {literal,     NULL,   PREC_NONE},

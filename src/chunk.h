@@ -67,7 +67,6 @@ typedef enum {
 	OP_TYPE_OF,			// typeof
 	OP_CLASS,			// create class
 	OP_METHOD,			// make class func
-	OP_PRINT,			// print string or value
 
 	OP_MODULE_BUILTIN,	//load builtin module
 } OpCode;
