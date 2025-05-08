@@ -1,4 +1,5 @@
 # FliteLang
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/IMSDcrueoft/FliteLang)
 
 FliteLang is a subset of LoxFlux language (https://github.com/IMSDcrueoft/LoxFlux).
 
