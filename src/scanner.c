@@ -216,7 +216,6 @@ static TokenType builtinType() {
 			}
 			break;
 		}
-		case 't':return checkModule(2, 3, "ime", TOKEN_MODULE_TIME);
 		}
 	}
 

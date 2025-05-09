@@ -5,6 +5,6 @@ fun fib(n) {
   }
 }
 
-var start = @time.milli();
+var start = clock();
 @sys.log(fib(35));
-@sys.log(@time.milli() - start);
+@sys.log(clock() - start);

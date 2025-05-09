@@ -986,7 +986,6 @@ static void builtinLiteral(bool canAssign) {
 	case TOKEN_MODULE_MATH:emitBytes(2, OP_MODULE_BUILTIN, MODULE_MATH); break;
 	case TOKEN_MODULE_ARRAY:emitBytes(2, OP_MODULE_BUILTIN, MODULE_ARRAY); break;
 	case TOKEN_MODULE_STRING:emitBytes(2, OP_MODULE_BUILTIN, MODULE_STRING); break;
-	case TOKEN_MODULE_TIME:emitBytes(2, OP_MODULE_BUILTIN, MODULE_TIME); break;
 	case TOKEN_MODULE_SYSTEM:emitBytes(2, OP_MODULE_BUILTIN, MODULE_SYSTEM); break;
 	default:emitByte(OP_NIL); break;
 	}
@@ -1162,7 +1161,6 @@ ParseRule rules[] = {
 	[TOKEN_MODULE_MATH] = {builtinLiteral,     NULL,   PREC_NONE},
 	[TOKEN_MODULE_ARRAY] = {builtinLiteral,     NULL,   PREC_NONE},
 	[TOKEN_MODULE_STRING] = {builtinLiteral,     NULL,   PREC_NONE},
-	[TOKEN_MODULE_TIME] = {builtinLiteral,     NULL,   PREC_NONE},
 	[TOKEN_MODULE_SYSTEM] = {builtinLiteral,     NULL,   PREC_NONE},
 	[TOKEN_AND] = {NULL,     and_,   PREC_AND},
 	[TOKEN_CLASS] = {NULL,     NULL,   PREC_NONE},

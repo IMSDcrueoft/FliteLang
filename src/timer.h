@@ -6,5 +6,4 @@
 #pragma once
 #include <stdint.h>
 int64_t get_milliseconds();
-int64_t get_seconds();
 int64_t get_utc_seconds();

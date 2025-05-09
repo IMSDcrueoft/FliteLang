@@ -71,9 +71,6 @@
     <ClCompile Include="src\nativeSystem.c">
       <Filter>FliteLang\source</Filter>
     </ClCompile>
-    <ClCompile Include="src\nativeTime.c">
-      <Filter>FliteLang\source</Filter>
-    </ClCompile>
     <ClCompile Include="src\nativeString.c">
       <Filter>FliteLang\source</Filter>
     </ClCompile>

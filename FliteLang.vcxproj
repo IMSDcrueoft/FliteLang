@@ -179,7 +179,6 @@
     <ClCompile Include="src\nativeGlobal.c" />
     <ClCompile Include="src\nativeMath.c" />
     <ClCompile Include="src\nativeSystem.c" />
-    <ClCompile Include="src\nativeTime.c" />
     <ClCompile Include="src\object.c" />
     <ClCompile Include="src\scanner.c" />
     <ClCompile Include="src\nativeString.c" />

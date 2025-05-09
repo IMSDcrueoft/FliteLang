@@ -103,7 +103,6 @@ InterpretResult interpret_repl(C_STR source);
 void defineNative_math(C_STR name, NativeFn function);
 void defineNative_array(C_STR name, NativeFn function);
 void defineNative_string(C_STR name, NativeFn function);
-void defineNative_time(C_STR name, NativeFn function);
 void defineNative_system(C_STR name, NativeFn function);
 //for global
 void defineNative_global(C_STR name, NativeFn function);
