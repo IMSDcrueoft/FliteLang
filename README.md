@@ -118,7 +118,7 @@ Primary         = "true" | "false" | "nil" | BuiltinModule  (* builtinLiteral() 
 
 There are some namespace objects that start with `'@'` available, and since they are not in the global scope, the initial state of the global scope is a "completely clean" state. 
 
-#### `@math` `@array` `@string` `@time` `@sys`
+#### `@math` `@array` `@string` `@sys`
 
 The `@math` module provides a comprehensive set of mathematical functions and utilities, implemented as native bindings for efficiency and ease of use. These functions are accessible globally and can be used directly in scripts or applications.
 
@@ -179,17 +179,6 @@ The `@string` module provides advanced string manipulation capabilities, support
   - `utf8At`: Retrieves a UTF-8 character by logical character position. e.g.,`@string.utf8At("αβγ", 1)` → `"β"`
 
 This module balances performance and safety for both simple text tasks and large-scale string processing.
-
----
-
-The @time module provides precise timing functions for measuring and working with time intervals. These functions are implemented as native bindings for efficiency and accuracy, making them suitable for performance-critical applications, benchmarking, and timestamp generation.
-
-- **Time Methods**:
-  - `milli`: Returns the current time in milliseconds (1e-3 seconds) since an arbitrary reference point.
-  - `second`: Returns the current time in seconds since an arbitrary reference point.
-  - `utc`: Returns the current UTC time in seconds since the Unix epoch (January 1, 1970).
-
-These utilities enable precise time management in applications requiring performance optimization or temporal coordination.
 
 ---
 
