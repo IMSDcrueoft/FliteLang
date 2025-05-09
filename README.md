@@ -118,45 +118,7 @@ Primary         = "true" | "false" | "nil" | BuiltinModule  (* builtinLiteral() 
 
 There are some namespace objects that start with `'@'` available, and since they are not in the global scope, the initial state of the global scope is a "completely clean" state. 
 
-#### `@math` `@array` `@string` `@sys`
-
-The `@math` module provides a comprehensive set of mathematical functions and utilities, implemented as native bindings for efficiency and ease of use. These functions are accessible globally and can be used directly in scripts or applications.
-
-- **Basic Arithmetic Functions**:
-  - `max`: Returns the maximum value among the provided arguments.
-  - `min`: Returns the minimum value among the provided arguments.
-  - `abs`: Computes the absolute value of a number.
-  - `floor`: Rounds a number down to the nearest integer.
-  - `ceil`: Rounds a number up to the nearest integer.
-  - `round`: Rounds a number to the nearest integer.
-
-- **Exponential and Logarithmic Functions**:
-  - `pow`: Computes the power of a number (x^y).
-  - `sqrt`: Computes the square root of a number.
-  - `exp`: Computes the exponential function (e^x).
-  - `log`: Computes the natural logarithm (ln) of a number.
-  - `log2`: Computes the base-2 logarithm of a number.
-  - `log10`: Computes the base-10 logarithm of a number.
-
-- **Trigonometric Functions**:
-  - `sin`: Computes the sine of an angle (in radians).
-  - `cos`: Computes the cosine of an angle (in radians).
-  - `tan`: Computes the tangent of an angle (in radians).
-  - `asin`: Computes the arcsine (inverse sine) of a number.
-  - `acos`: Computes the arccosine (inverse cosine) of a number.
-  - `atan`: Computes the arctangent (inverse tangent) of a number.
-
-- **Random Number Generation**:
-  - `random`: Generates a pseudo-random number using the xorshift128+ algorithm.
-  - `seed`: Initializes the random number generator with a specific seed value.
-
-- **Special Value Checks**:
-  - `isNaN`: Checks if a value is NaN (Not a Number).
-  - `isFinite`: Checks if a value is finite (not infinite or NaN).
-
-These functions are designed to provide robust mathematical capabilities while maintaining high performance through native implementation. They are ideal for scientific computations, game development, simulations, and other domains requiring precise numerical operations.
-
----
+#### `@array` `@string` `@sys`
 
 The `@array` module provides robust support for working with arrays, enabling efficient manipulation of collections of data. These utilities allow developers to create and manage arrays of various types with fine-grained control.
 
