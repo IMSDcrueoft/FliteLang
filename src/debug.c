@@ -20,17 +20,11 @@ static uint32_t builtinInStruction(C_STR name, Chunk* chunk, uint32_t offset) {
 	uint32_t slot = chunk->code[offset + 1];
 	switch (slot)
 	{
-	case MODULE_MATH:
-		printf("%-16s %-10s\n", name, "@math");
-		break;
 	case MODULE_ARRAY:
 		printf("%-16s %-10s\n", name, "@array");
 		break;
 	case MODULE_STRING:
 		printf("%-16s %-10s\n", name, "@string");
-		break;
-	case MODULE_TIME:
-		printf("%-16s %-10s\n", name, "@time");
 		break;
 	case MODULE_SYSTEM:
 		printf("%-16s %-10s\n", name, "@sys");

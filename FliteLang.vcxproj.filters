@@ -65,9 +65,6 @@
     <ClCompile Include="src\gc.c">
       <Filter>FliteLang\source</Filter>
     </ClCompile>
-    <ClCompile Include="src\nativeMath.c">
-      <Filter>FliteLang\source</Filter>
-    </ClCompile>
     <ClCompile Include="src\nativeSystem.c">
       <Filter>FliteLang\source</Filter>
     </ClCompile>

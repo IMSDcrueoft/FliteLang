@@ -204,7 +204,6 @@ static TokenType builtinType() {
 	if ((scanner.start[0] == '@') && (scanner.current - scanner.start > 1)) {
 		switch (scanner.start[1])
 		{
-		case 'm':return checkModule(2, 3, "ath", TOKEN_MODULE_MATH);
 		case 'a':return checkModule(2, 4, "rray", TOKEN_MODULE_ARRAY);
 		case 's': {
 			if (scanner.current - scanner.start > 2) {
@@ -228,7 +227,7 @@ static Token mention() {
 	TokenType type = builtinType();
 
 	if (type == TOKEN_NIL) {
-		return errorToken("Unexpected module (Available modules : @math, @array, @string, @time, @system).");
+		return errorToken("Unexpected module (Available modules : @array, @string, @system).");
 	}
 
 	return makeToken(type);

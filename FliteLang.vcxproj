@@ -177,7 +177,6 @@
     <ClCompile Include="src\lineArray.c" />
     <ClCompile Include="src\memory.c" />
     <ClCompile Include="src\nativeGlobal.c" />
-    <ClCompile Include="src\nativeMath.c" />
     <ClCompile Include="src\nativeSystem.c" />
     <ClCompile Include="src\object.c" />
     <ClCompile Include="src\scanner.c" />

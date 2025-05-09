@@ -9,7 +9,6 @@
 #include "table.h"
 
 typedef enum {
-	MODULE_MATH,
 	MODULE_ARRAY,
 	MODULE_STRING,
 	MODULE_SYSTEM,

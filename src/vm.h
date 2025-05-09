@@ -100,7 +100,6 @@ InterpretResult interpret(C_STR source);
 InterpretResult interpret_repl(C_STR source);
 
 //for builtin
-void defineNative_math(C_STR name, NativeFn function);
 void defineNative_array(C_STR name, NativeFn function);
 void defineNative_string(C_STR name, NativeFn function);
 void defineNative_system(C_STR name, NativeFn function);

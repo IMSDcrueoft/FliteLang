@@ -105,14 +105,6 @@ Value stack_pop()
 #define STACK_PEEK(distance) (vm.stackTop[-1 - distance])
 
 COLD_FUNCTION
-void defineNative_math(C_STR name, NativeFn function) {
-	tableSet(&vm.builtins[MODULE_MATH].fields,
-		copyString(name, (uint32_t)strlen(name), false),
-		OBJ_VAL(newNative(function))
-	);
-}
-
-COLD_FUNCTION
 void defineNative_array(C_STR name, NativeFn function) {
 	tableSet(&vm.builtins[MODULE_ARRAY].fields,
 		copyString(name, (uint32_t)strlen(name), false),
@@ -161,12 +153,10 @@ static void importBuiltins() {
 	}
 
 	//init
-	table_init(&vm.builtins[MODULE_MATH].fields);
 	table_init(&vm.builtins[MODULE_ARRAY].fields);
 	table_init(&vm.builtins[MODULE_STRING].fields);
 	table_init(&vm.builtins[MODULE_SYSTEM].fields);
 
-	importNative_math();
 	importNative_array();
 	importNative_string();
 	importNative_system();
