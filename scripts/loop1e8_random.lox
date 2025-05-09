@@ -1,6 +1,0 @@
-var start = clock();
-for(var i = 0;i<1e8;){
-    @math.random();
-    i = i+1;
-}
-@sys.log(clock() - start);
