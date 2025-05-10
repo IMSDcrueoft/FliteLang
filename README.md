@@ -136,9 +136,7 @@ The `@string` module provides advanced string manipulation capabilities, support
 
 - **String Methods**:
   - `length`: Returns the byte length of a string.  
-  - `utf8Len`: Returns the character count for UTF-8 strings (ignoring byte-level details). e.g.,`@string.utf8Len("αβγ")` → `3`
   - `charAt`: Retrieves an ASCII character by byte position.  
-  - `utf8At`: Retrieves a UTF-8 character by logical character position. e.g.,`@string.utf8At("αβγ", 1)` → `"β"`
 
 This module balances performance and safety for both simple text tasks and large-scale string processing.
 
@@ -146,17 +144,10 @@ This module balances performance and safety for both simple text tasks and large
 
 The `@sys` module offers low-level system utilities, primarily focused on memory management and garbage collection. These functions provide insights into the runtime environment and allow fine-grained control over resource allocation.
 
-- **Log**
+- **System Methods**
   - `log`: Allows for multiple inputs and automatically expands the contents of the array and prints (but not recursively).
-
-- **Garbage Collection**:
   - `gc`: Triggers a full garbage collection cycle.
-  - `gcNext`: Configure the heap memory usage to be used for the next GC trigger.
-  - `gcBegin`: Configure the limits of the initial GC.
-
-- **Memory Statistics**:
-  - `allocated`: Returns the total number of bytes currently allocated in the dynamic memory pool(includes built-in objects and deduplication pools).
-  - `static`: Returns the total number of bytes allocated for static objects(e.g., strings, functions).
+  - `total`: Returns the total number of bytes currently allocated.
 
 These utilities are invaluable for monitoring and optimizing memory usage, especially in long-running applications or environments with limited resources. They enable developers to manage memory explicitly and diagnose potential memory leaks or inefficiencies.
 
