@@ -8,7 +8,6 @@
 #include "compiler.h"
 #include "allocator.h"
 #include "memory.h"
-#include "timer.h"
 
 //Flip tagging, although the performance is not high (about 4% gap), is more suitable for concurrent tagging
 uint8_t usingMark = 1;

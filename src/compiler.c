@@ -10,9 +10,6 @@
 #if DEBUG_PRINT_CODE
 #include "debug.h"
 #endif
-#if LOG_COMPILE_TIMING
-#include "timer.h"
-#endif
 
 //shared parser
 Parser parser;

@@ -16,7 +16,6 @@ typedef enum {
 	BUILTIN_MODULE_COUNT,//as the size too
 } BuiltinMouduleType;
 
-void importNative_math();
 void importNative_array();
 void importNative_string();
 void importNative_system();

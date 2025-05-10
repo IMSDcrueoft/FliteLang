@@ -17,18 +17,12 @@
 
 // switch on this to use log
 #define LOG_MODE 0
-// log compile time
-#define LOG_COMPILE_TIMING 0
-// log execute time
-#define LOG_EXECUTE_TIMING 0
 // use this to check memory allocate and leak
 #define LOG_EACH_MALLOC_INFO 0
 // use this to log gc info
 #define LOG_GC_RESULT 0
 // log memory info after execute
 #define LOG_MALLOC_INFO 1
-// kilo instructions per second
-#define LOG_MIPS 0
 
 #if !DEBUG_MODE
 #undef DEBUG_PRINT_CODE
@@ -38,10 +32,7 @@
 #endif
 
 #if !LOG_MODE
-#undef LOG_COMPILE_TIMING
-#undef LOG_EXECUTE_TIMING
 #undef LOG_EACH_MALLOC_INFO
 #undef LOG_GC_RESULT
 #undef LOG_MALLOC_INFO
-#undef LOG_MIPS
 #endif

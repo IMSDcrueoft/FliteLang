@@ -11,16 +11,8 @@
 #include "debug.h"
 #endif
 
-#if LOG_EXECUTE_TIMING || LOG_MIPS
-#include "timer.h"
-#endif
-
 //the global shared vm
 VM vm;
-
-#if LOG_MIPS
-static uint64_t byteCodeCount;
-#endif
 
 COLD_FUNCTION
 static void stack_reset()
@@ -505,12 +497,6 @@ HOT_FUNCTION
 static inline bool isTruthy(Value value) {
 	return !IS_NIL(value) && (!IS_BOOL(value) || AS_BOOL(value));
 }
-
-#if LOG_MIPS
-static inline void addByteCodeCount() {
-	++byteCodeCount;
-}
-#endif
 
 HOT_FUNCTION
 static bool bitInstruction(uint8_t bitOpType) {
@@ -1091,10 +1077,6 @@ static InterpretResult run()
 			break;
 		}
 		}
-
-#if LOG_MIPS
-		addByteCodeCount();
-#endif
 	}
 
 	//the place the error happens
@@ -1107,17 +1089,8 @@ static InterpretResult run()
 
 InterpretResult interpret(C_STR source)
 {
-#if LOG_COMPILE_TIMING
-	uint64_t time_compile = get_milliseconds();
-#endif
-
 	ObjFunction* function = compile(source);
 	if (function == NULL) return INTERPRET_COMPILE_ERROR;
-
-#if LOG_COMPILE_TIMING
-	double time_compile_f = (get_milliseconds() - time_compile);
-	printf("[Log] Finished compiling in %g ms.\n", time_compile_f);
-#endif
 
 	//stack_push(OBJ_VAL(function));
 	ObjClosure* closure = newClosure(function);
@@ -1125,27 +1098,7 @@ InterpretResult interpret(C_STR source)
 	stack_push(OBJ_VAL(closure));
 	call(closure, 0);
 
-#if LOG_EXECUTE_TIMING || LOG_MIPS
-	uint64_t time_run = get_milliseconds();
-#endif
-
-#if LOG_MIPS
-	byteCodeCount = 0;
-#endif
-
 	InterpretResult result = run();
-
-#if LOG_EXECUTE_TIMING || LOG_MIPS
-	double time_run_f = (get_milliseconds() - time_run);
-#if LOG_EXECUTE_TIMING
-	printf("[Log] Finished executing in %g ms.\n", time_run_f);
-#endif
-#if LOG_MIPS
-	printf("[Log] Finished executing at %g mips.\n", byteCodeCount / time_run_f * 1e-3);
-	byteCodeCount = 0;
-#endif
-#endif
-
 	return result;
 }
 
