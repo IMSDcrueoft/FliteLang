@@ -85,7 +85,7 @@ void stack_push(Value value)
 		ptrdiff_t oldCapacity = vm.stackBoundary - vm.stack;
 		uint32_t capacity = GROW_CAPACITY(oldCapacity);
 
-		if (capacity > UINT16_COUNT) {
+		if (capacity > STACK_MAX_SIZE) {
 			runtimeError("Stack overflow.");
 			return;
 		}
