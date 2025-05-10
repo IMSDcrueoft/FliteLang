@@ -6,7 +6,6 @@
 #include "memory.h"  
 #include "object.h"  
 #include "vm.h"
-#include "allocator.h"
 #include "gc.h"
 
 void* reallocate_no_gc(void* pointer, uint64_t oldSize, uint64_t newSize)

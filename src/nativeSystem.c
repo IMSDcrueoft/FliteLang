@@ -35,9 +35,6 @@ static Value logNative(int argCount, Value* args) {
 	return NIL_VAL;
 }
 
-#undef KiB16
-#undef GiB1
-
 COLD_FUNCTION
 void importNative_system() {
 	defineNative_system("gc", gcNative);

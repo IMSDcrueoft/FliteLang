@@ -26,3 +26,7 @@ typedef const char* C_STR;
 #define UINT10_MAX 0x3ff
 #define UINT10_COUNT 0x400
 #define UINT16_COUNT 0x10000
+
+#define mem_alloc malloc
+#define mem_realloc realloc
+#define mem_free free

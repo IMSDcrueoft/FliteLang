@@ -6,7 +6,6 @@
 #include "gc.h"
 #include "vm.h"
 #include "compiler.h"
-#include "allocator.h"
 #include "memory.h"
 
 //Flip tagging, although the performance is not high (about 4% gap), is more suitable for concurrent tagging
