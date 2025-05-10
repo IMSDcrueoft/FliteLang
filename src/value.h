@@ -55,9 +55,6 @@ typedef struct {
 #define NUMBER_VAL(value) ((Value){VAL_NUMBER, {.number = value}})
 #define OBJ_VAL(object)   ((Value){VAL_OBJ, {.obj = (Obj*)object}})
 
-#define IS_NAN(value)		(IS_NUMBER(value) && isnan(AS_NUMBER(value)))
-#define IS_INFINITY(value)	  (IS_NUMBER(value) && isinf(AS_NUMBER(value)))
-
 bool valuesEqual(Value a, Value b);
 
 void printValue(Value value);
