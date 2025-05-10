@@ -18,53 +18,6 @@ bool valuesEqual(Value a, Value b)
 	}
 }
 
-static void remove_trailing_zeros(STR str) {
-	STR dot = strchr(str, '.');
-	if (!dot) return;
-
-	STR end = str + strlen(str) - 1;
-	while (end > dot && *end == '0') {
-		*end-- = '\0';
-	}
-
-	if (*end == '.') {
-		*end = '\0';
-	}
-}
-
-static void remove_scientific_zeros(STR str) {
-	STR e_pos = strchr(str, 'e');
-	if (!e_pos) return;
-
-	*e_pos = '\0';
-	remove_trailing_zeros(str);
-	*e_pos = 'e';
-}
-
-void print_adaptive_double(double value) {
-	double int_part;
-	double fractional = modf(value, &int_part);
-
-	if (fabs(fractional) < 1e-10) {
-		printf("%.0f", int_part);
-		return;
-	}
-
-	const double abs_value = fabs(value);
-	char buffer[40];
-
-	if (abs_value >= 1e9 || (abs_value <= 1e-5 && value != 0.0)) {
-		snprintf(buffer, sizeof(buffer), "%.15e", value);
-		remove_scientific_zeros(buffer);
-	}
-	else {
-		snprintf(buffer, sizeof(buffer), "%.15f", value);
-		remove_trailing_zeros(buffer);
-	}
-
-	printf("%s", buffer);
-}
-
 void printValue(Value value) {
 	switch (value.type) {
 	case VAL_BOOL:
@@ -72,7 +25,7 @@ void printValue(Value value) {
 		break;
 	case VAL_NIL: printf("nil"); break;
 	case VAL_NUMBER: {
-		print_adaptive_double(AS_NUMBER(value)); break;
+		printf("%g", AS_NUMBER(value)); break;
 	}
 	case VAL_OBJ: printObject(value, false); break;
 	}
@@ -86,7 +39,7 @@ void printValue_sys(Value value)
 		break;
 	case VAL_NIL: printf("nil"); break;
 	case VAL_NUMBER: {
-		print_adaptive_double(AS_NUMBER(value)); break;
+		printf("%g", AS_NUMBER(value)); break;
 	}
 	case VAL_OBJ: printObject(value, true); break;
 	}

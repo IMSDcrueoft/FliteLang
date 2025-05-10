@@ -56,9 +56,6 @@
     <ClCompile Include="src\entrance.c">
       <Filter>FliteLang\source</Filter>
     </ClCompile>
-    <ClCompile Include="src\nativeGlobal.c">
-      <Filter>FliteLang\source</Filter>
-    </ClCompile>
     <ClCompile Include="src\gc.c">
       <Filter>FliteLang\source</Filter>
     </ClCompile>

@@ -6,6 +6,7 @@
 #include "vm.h"
 #include "object.h"
 #include "gc.h"
+#include <time.h>
 
 #if DEBUG_TRACE_EXECUTION
 #include "debug.h"
@@ -13,6 +14,19 @@
 
 //the global shared vm
 VM vm;
+
+//return second
+static Value clockNative(int argCount, Value* args)
+{
+	return NUMBER_VAL((double)clock() / CLOCKS_PER_SEC);
+}
+
+COLD_FUNCTION
+static void importNative_global()
+{
+	//nothing here yet.
+	defineNative_global("clock", clockNative);
+}
 
 COLD_FUNCTION
 static void stack_reset()

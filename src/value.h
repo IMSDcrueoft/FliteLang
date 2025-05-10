@@ -60,7 +60,6 @@ typedef struct {
 
 bool valuesEqual(Value a, Value b);
 
-void print_adaptive_double(double value);
 void printValue(Value value);
 void printValue_sys(Value value);
 

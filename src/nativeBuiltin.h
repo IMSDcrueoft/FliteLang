@@ -19,4 +19,3 @@ typedef enum {
 void importNative_array();
 void importNative_string();
 void importNative_system();
-void importNative_global();
