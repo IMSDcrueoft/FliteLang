@@ -201,7 +201,6 @@ void garbageCollect()
 #endif
 
 #if DEBUG_LOG_GC || LOG_GC_RESULT
-	uint64_t time_gc = get_nanoseconds();
 	uint64_t before = vm.bytesAllocated;
 #endif
 	markRoots();
@@ -219,9 +218,8 @@ void garbageCollect()
 #endif
 
 #if DEBUG_LOG_GC || LOG_GC_RESULT
-	double time_ms = (get_nanoseconds() - time_gc) * 1e-6;
-	printf("[gc] collected %zu bytes (from %zu to %zu) next at %zu, in %g ms\n",
-		before - vm.bytesAllocated, before, vm.bytesAllocated, vm.nextGC, time_ms);
+	printf("[gc] collected %zu bytes (from %zu to %zu) next at %zu\n",
+		before - vm.bytesAllocated, before, vm.bytesAllocated, vm.nextGC);
 #endif
 }
 
