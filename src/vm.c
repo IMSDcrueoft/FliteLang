@@ -858,6 +858,17 @@ static InterpretResult run()
 			ObjString* name = AS_STRING(constant);
 			Value value;
 
+			//inline find by cache symbol
+			if ((name->symbol != INVALID_OBJ_STRING_SYMBOL)) {
+				Entry* entry = &vm.globals.fields.entries[name->symbol];
+
+				if (entry->key == name) {
+					// We found the key.
+					stack_push(entry->value);
+					break;
+				}
+			}
+
 			if (!tableGet(&vm.globals.fields, name, &value)) {
 				runtimeError("Undefined variable '%s'.", name->chars);
 				return INTERPRET_RUNTIME_ERROR;
@@ -868,6 +879,16 @@ static InterpretResult run()
 		case OP_SET_GLOBAL: {
 			Value constant = READ_CONSTANT(READ_SHORT());
 			ObjString* name = AS_STRING(constant);
+
+			//inline find by cache symbol(if we found it,it's not new key)
+			if ((name->symbol != INVALID_OBJ_STRING_SYMBOL)) {
+				Entry* entry = &vm.globals.fields.entries[name->symbol];
+				if (entry->key == name) {
+					// We found the key.
+					entry->value = vm.stackTop[-1];
+					break;
+				}
+			}
 
 			if (tableSet(&vm.globals.fields, name, vm.stackTop[-1])) {
 				//lox dont allow setting undefined one

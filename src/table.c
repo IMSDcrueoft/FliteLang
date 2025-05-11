@@ -31,16 +31,6 @@ static Entry* findEntry(Entry* entries, uint32_t capacity, ObjString* key, Table
 	//check it
 	Entry* entry = NULL;
 
-	//find by cache symbol
-	if ((type == TABLE_GLOBAL) && (key->symbol != INVALID_OBJ_STRING_SYMBOL)) {
-		entry = &entries[key->symbol];
-
-		if (entry->key == key) {
-			// We found the key.
-			return entry;
-		}
-	}
-
 	uint32_t index = key->hash & (capacity - 1);
 	Entry* tombstone = NULL;
 
