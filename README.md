@@ -41,7 +41,7 @@ Keyword         = "class" | "fun" | "var" | "for" | "branch"
                 | "continue" | "typeof" ;
 
 (* Built-in modules from scanner.c's builtinType() *)
-BuiltinModule   = "@math" | "@array" | "@string" | "@time" | "@sys" ;
+BuiltinModule   = "@array" | "@string" | "@sys" ;
 
 (* ===== Syntax Rules ===== *)
 Program         = { Declaration } EOF ;
