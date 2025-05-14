@@ -114,7 +114,7 @@ Primary         = "true" | "false" | "nil" | BuiltinModule  (* builtinLiteral() 
 - **Shared constants**: Use a shared constant table instead of a function holding its own constant table individually.
 - **Constant range**: Expands to `0xffff` (65,535)(will reduce perf).
 - **Constant deduplication**: For both numbers and strings.
-- **Optimized global variable access**: Achieves `O(1)` time complexity, the access overhead is close to that of local variables. With dynamic update key indexes, direct index fetching can be achieved in almost all cases. Indexes are rarely invalidated, unless you frequently delete and then declare global variables that don't exist.
+- **Optimized global variable access**: Achieves `O(1)` time complexity, the access overhead is close to that of local variables. With dynamic update key indexes, direct index fetching can be achieved in almost all cases. Indexes are rarely invalidated, unless you frequently declare new global variables.
 - **Inline `init()`**: The inline caching class init() method helps reduce the overhead of object creation.
 - **Flip-up GC marking**: Flipping tags can avoid reverting to the write of tags during the recycling process, and favor concurrent tags (if actually implemented).
 - **Detached static and dynamic objects**: Static objects such as strings/functions, they don't usually bloat very much, so I think it's a viable option not to recycle them.
