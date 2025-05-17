@@ -261,8 +261,9 @@ ObjString* copyString(C_STR chars, uint32_t length, bool escapeChars)
 			return string;
 		}
 		else {
-			//free memory
-			FREE(ObjString, string);
+			//free memory this should be the first obj of the object list
+			vm.objects_no_gc = OBJ_PTR_GET_NEXT(&string->obj);
+			freeObject((Obj*)string);
 			return interned;
 		}
 	}
@@ -290,8 +291,9 @@ ObjString* connectString(ObjString* strA, ObjString* strB) {
 		return string;
 	}
 	else {
-		//free memory
-		FREE(ObjString, string);
+		//free memory this should be the first obj of the object list
+		vm.objects_no_gc = OBJ_PTR_GET_NEXT(&string->obj);
+		freeObject((Obj*)string);
 		return interned;
 	}
 }

@@ -49,8 +49,8 @@ struct Obj {
 	uint8_t isMarked;
 	struct Obj* next;
 };
-#define OBJ_PTR_SET_NEXT(obj,nextPtr)	(obj->next = nextPtr)
-#define OBJ_PTR_GET_NEXT(obj)			(obj->next)
+#define OBJ_PTR_SET_NEXT(obj,nextPtr)	((obj)->next = nextPtr)
+#define OBJ_PTR_GET_NEXT(obj)			((obj)->next)
 
 static inline Obj stateLess_obj_header(ObjType objType) {
 	return (Obj) { .next = NULL, .isMarked = 1, .type = objType };
